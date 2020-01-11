@@ -18,11 +18,7 @@ public class Robot extends TimedRobot {
     // Subsystems
     public static SwerveDriveSubsystem swerveDriveSubsystem;
     public static GyroSubsystem gyroSubsystem;
-    public static ArmSubsystem armSubsystem;
-    public static CargoIntakeSubsystem cargoIntakeSubsystem;
-    public static ElevatorSubsystem elevatorSubsystem;
     public static UsbCamera camera;
-    public static ClimberSubsystem climberSubsystem;
 
     public static final boolean useSwerveDrive = true;
 
@@ -41,23 +37,6 @@ public class Robot extends TimedRobot {
             swerveDriveSubsystem = new SwerveDriveSubsystem();
             swerveDriveSubsystem.initialize();
             log.info("Swerve Drive Subsystem Initialized");
-
-            climberSubsystem = new ClimberSubsystem();
-            climberSubsystem.initialize();
-            log.info("Climber Subsystem Initialized");
-
-            armSubsystem = new ArmSubsystem();
-            armSubsystem.initialize();
-            log.info("Arm Subsystem Initialized");
-
-            cargoIntakeSubsystem = new CargoIntakeSubsystem();
-            cargoIntakeSubsystem.initialize();
-            log.info("Cargo Intake Subsystem Initialized");
-
-
-            elevatorSubsystem = new ElevatorSubsystem();
-            elevatorSubsystem.initialize();
-            log.info("Elevator Subsystem Initialized");
 
             camera = CameraServer.getInstance().startAutomaticCapture();
             // cam.setResolution(100, 75);
@@ -139,7 +118,5 @@ public class Robot extends TimedRobot {
     public void updateAllDashboards() {
         Robot.swerveDriveSubsystem.updateDashboard();
         Robot.gyroSubsystem.updateDashboard();
-        Robot.climberSubsystem.updateDashboard();
-        Robot.elevatorSubsystem.updateDashboard();
     }
 }

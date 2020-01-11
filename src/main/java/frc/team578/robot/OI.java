@@ -2,9 +2,7 @@ package frc.team578.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.team578.robot.commands.*;
-import frc.team578.robot.enums.ArmPositionEnum;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.utils.Gamepad;
 
@@ -22,28 +20,6 @@ public class OI implements Initializable {
 
     public void initialize() {
 
-        gp1.buttonA.whenPressed(new MoveArmCommand(ArmPositionEnum.RETRACTED));
-        gp1.buttonX.whenPressed(new MoveArmCommand(ArmPositionEnum.MID_EXTEND));
-        gp1.buttonB.whenPressed(new MoveArmCommand(ArmPositionEnum.MID_EXTEND));
-        gp1.buttonY.whenPressed(new MoveArmCommand(ArmPositionEnum.FULL_EXTEND));
-        gp1.lb.whileHeld(new IntakeSpinInwardCommand());
-        gp1.rb.whileHeld(new IntakeSpinOutwardCommand());
-        gp1.rt.whenPressed(new IntakeExtendCommand());
-        gp1.lt.whenPressed(new IntakeRetractCommand());
-
-        //gp2.buttonY.whenPressed(new ClimberExtendAllCommand());
-        gp2.buttonX.whenPressed(new ClimberRetractFrontCommand());
-        gp2.buttonB.whenPressed(new ClimberRetractRearCommand());
-        gp2.buttonA.whenPressed(new ClimberRetractAllCommand());
-        gp2.buttonY.whileHeld(new ClimberExtendAllCommand());
-//        gp2.lb.whenPressed(new ClimberExtendRearCommand());
-    //    gp2.rb.whenPressed(new InstantCommand(Robot.climberSubsystem::disengageCutoff));
-    //    gp2.rt.whenPressed(new InstantCommand(Robot.climberSubsystem::engageCutoff));
-        gp2.start.whileHeld(new ClimberDriveForwardsCommand());
-        gp2.back.whileHeld(new ClimberDriveReverseCommand());
-
-//        leftJoystick.getTriggerPressed(new CentricModeRobotCommand());
-//        gp2.back.whileHeld(new CentricModeFieldCommand());
 
 //        if(leftJoystick.getTriggerPressed())
 //            new CentricModeRobotCommand();
@@ -55,8 +31,6 @@ public class OI implements Initializable {
         rightTrigger.whenPressed(new CentricModeFieldCommand());
     }
 
-    // This is here to make buttons persistant (i.e. Gamepad makes a new instance every request
-    // TODO : Want to fix that at some point.
     public class GP {
 
         Gamepad gamepad;
