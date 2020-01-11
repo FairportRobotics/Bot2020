@@ -1,10 +1,10 @@
 bin/
+.gradle/
 build/
 out/
 .settings/
 .project
 .classpath
-.gradle/
 .idea/
 *.iml
 *.ipr
