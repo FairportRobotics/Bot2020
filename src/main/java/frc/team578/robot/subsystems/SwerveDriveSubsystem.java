@@ -1,7 +1,6 @@
 package frc.team578.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team578.robot.commands.SwerveDriveCommand;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.subsystems.interfaces.UpdateDashboard;
