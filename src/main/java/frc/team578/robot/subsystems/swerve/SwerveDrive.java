@@ -3,7 +3,6 @@ package frc.team578.robot.subsystems.swerve;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.UpdateDashboard;
-import frc.team578.robot.subsystems.swerve.math.CentricMode;
 import frc.team578.robot.subsystems.swerve.math.SwerveDirective;
 import frc.team578.robot.subsystems.swerve.math.SwerveMath;
 import org.apache.logging.log4j.LogManager;

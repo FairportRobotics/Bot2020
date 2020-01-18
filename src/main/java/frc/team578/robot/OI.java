@@ -61,7 +61,6 @@ public class OI implements Initializable {
             buttonY = gamepad.getButtonY();
             back = gamepad.getBackButton();
             start = gamepad.getStartButton();
-            boolean dpadLeft = gamepad.getDPadLeft();
         }
 
 
