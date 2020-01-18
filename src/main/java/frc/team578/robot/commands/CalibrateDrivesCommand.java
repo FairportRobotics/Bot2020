@@ -20,7 +20,7 @@ public class CalibrateDrivesCommand extends TimedCommand implements UpdateDashbo
     static final int stableCounts = 3;
     static final long checkIntervalMillis = 50;
 
-    PIDFinished pidFinished;
+    PIDFinished<Double> pidFinished;
 
     public CalibrateDrivesCommand() {
         super(max_run_time_sec);
@@ -35,7 +35,7 @@ public class CalibrateDrivesCommand extends TimedCommand implements UpdateDashbo
         Supplier<Double> supplier = Robot.swerveDriveSubsystem::getSteerCLTErrorSum;
         Predicate<Double> successTest = (x) -> x < 20;
 
-        pidFinished = new PIDFinished(checkIntervalMillis, stableCounts, supplier, successTest);
+        pidFinished = new PIDFinished<Double>(checkIntervalMillis, stableCounts, supplier, successTest);
 
         Robot.swerveDriveSubsystem.calibrateAllSteerEncoders();
 
