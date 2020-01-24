@@ -15,13 +15,13 @@ public class Robot extends TimedRobot {
     // Operator Interface
     public static OI oi;
 
-    // Subsystems
+    // Subsystem
     public static SwerveDriveSubsystem swerveDriveSubsystem;
+    public static IntakeSubsystem intakeSubsystem;
+    public static ShooterSubsystem shooterSubsystem;
+    public static ClimberSubsystem climberSubsystem;
     public static GyroSubsystem gyroSubsystem;
     public static UsbCamera camera;
-
-    public static final boolean useSwerveDrive = true;
-
 
     @Override
     public void robotInit() {
@@ -37,6 +37,18 @@ public class Robot extends TimedRobot {
             swerveDriveSubsystem = new SwerveDriveSubsystem();
             swerveDriveSubsystem.initialize();
             log.info("Swerve Drive Subsystem Initialized");
+
+            intakeSubsystem = new IntakeSubsystem();
+            intakeSubsystem.initialize();
+            log.info("Intake Subsystem Initialized");
+
+            shooterSubsystem = new ShooterSubsystem();
+            shooterSubsystem.initialize();
+            log.info("Shooter Subsystem Initialized");
+
+            climberSubsystem = new ClimberSubsystem();
+            climberSubsystem.initialize();
+            log.info("Climber Subsystem Initialized");
 
             camera = CameraServer.getInstance().startAutomaticCapture();
             // cam.setResolution(100, 75);
