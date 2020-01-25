@@ -37,4 +37,6 @@ public class RobotMap {
     public static int WINCH_TALON = 99;
     public static int PCM1_CLIMBER_UP = 99;
     public static int PCM1_CLIMBER_DOWN = 99;
+    public static int INTAKE_FULL_SENSOR = 999;
+    public static int INTAKE_BALL_SENSOR = 999;
 }

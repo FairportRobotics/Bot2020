@@ -1,6 +1,7 @@
 package frc.team578.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;

@@ -88,6 +88,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
 
+        /*
+          TODO : Do we want to lower the arm at the beginning (or is this manual)
+         */
+
         Robot.swerveDriveSubsystem.stop();
         Robot.swerveDriveSubsystem.setModeRobot();
 
