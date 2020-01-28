@@ -19,7 +19,7 @@ while(True):
     hsv = cv2.inRange(temp, (0, 0, 232),  (180, 255, 255))
     erode = cv2.erode(hsv, None, cv2.BORDER_CONSTANT)
     dilate = cv2.dilate(erode, None, cv2.BORDER_CONSTANT)
-    contours, hierarchy = cv2.findContours(dilate, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 #    contour = contours[1] # Specified contour
     contour = max(contours, key = cv2.contourArea) # Contour with max area
