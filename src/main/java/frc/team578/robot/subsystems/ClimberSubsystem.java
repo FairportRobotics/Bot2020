@@ -42,4 +42,8 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
 
     public void winchDown() {
     }
+
+    public boolean isClimberDeployed() {
+        return false;
+    }
 }
