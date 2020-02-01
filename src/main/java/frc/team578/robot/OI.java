@@ -1,6 +1,7 @@
 package frc.team578.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team578.robot.commands.*;
 import frc.team578.robot.subsystems.interfaces.Initializable;
@@ -10,29 +11,51 @@ public class OI implements Initializable {
 
     public Joystick leftJoystick = new Joystick(RobotMap.LEFT_JOYSTICK_ID);
     public Joystick rightJoystick = new Joystick(RobotMap.RIGHT_JOYSTICK_ID);
-    public GP gp1 = new GP(RobotMap.CONTROL_GAMEPAD_ID); // Elevator and arm functions
-    public GP gp2 = new GP(RobotMap.CLIMB_GAMEPAD_ID); // Climber functions
+    public OB ob1 = new OB(RobotMap.OPERATORBOX_ID); // Operator box - main control functions w/ analog joystick
+    public GP gp2 = new GP(RobotMap.DEBUG_GAMEPAD_ID); // Debug gamepad - secondary, nonessential functions
 
     int JOYSTICK_TRIGGER_BUTTON_NUMBER = 1;
     JoystickButton leftTrigger = new JoystickButton(leftJoystick, JOYSTICK_TRIGGER_BUTTON_NUMBER);
     JoystickButton rightTrigger = new JoystickButton(rightJoystick, JOYSTICK_TRIGGER_BUTTON_NUMBER);
 
-
     public void initialize() {
-
-
-//        if(leftJoystick.getTriggerPressed())
-//            new CentricModeRobotCommand();
-//        if(leftJoystick.getTriggerReleased())
-//            new CentricModeFieldCommand();
-
         leftTrigger.whenPressed(new CentricModeRobotCommand());
-//        leftTrigger.whenPressed(new InstantCommand(Robot.swerveDriveSubsystem::setModeField));
         rightTrigger.whenPressed(new CentricModeFieldCommand());
     }
 
-    public class GP {
+    public class OB {
+        Gamepad operatorBox;
+        JoystickButton one;
+        JoystickButton two;
+        JoystickButton three;
+        JoystickButton four;
+        JoystickButton five;
+        JoystickButton six;
+        JoystickButton seven;
+        JoystickButton eight;
+        JoystickButton nine;
+        JoystickButton ten;
 
+        public OB(int id) {
+            operatorBox = new Gamepad(id);
+            one = new JoystickButton(operatorBox, 1);
+            two = new JoystickButton(operatorBox, 2);
+            three = new JoystickButton(operatorBox, 3);
+            four = new JoystickButton(operatorBox, 4);
+            five = new JoystickButton(operatorBox, 5);
+            six = new JoystickButton(operatorBox, 6);
+            seven = new JoystickButton(operatorBox, 7);
+            eight = new JoystickButton(operatorBox, 8);
+            nine = new JoystickButton(operatorBox, 9);
+            ten = new JoystickButton(operatorBox, 10);
+        }
+
+        public double getJoystickX() {
+            return operatorBox.getLeftX();
+        }
+    }
+
+    public class GP {
         Gamepad gamepad;
         JoystickButton rb;
         JoystickButton lb;
@@ -44,10 +67,6 @@ public class OI implements Initializable {
         JoystickButton buttonY;
         JoystickButton back;
         JoystickButton start;
-        boolean dpadLeft;
-
-        // Gamepad controls
-
 
         public GP(int id) {
             gamepad = new Gamepad(id);
@@ -62,7 +81,6 @@ public class OI implements Initializable {
             back = gamepad.getBackButton();
             start = gamepad.getStartButton();
         }
-
 
         public double getPadLeftX() {
             return gamepad.getLeftX();
@@ -79,39 +97,6 @@ public class OI implements Initializable {
         public double getPadRightY() {
             return gamepad.getRightY();
         }
-    }
-
-    public double getArmUp() {
-
-        if (gp1 != null) {
-            if (deadband(gp1.getPadLeftY()) != 0) {
-                return gp1.getPadLeftY();
-            }
-        }
-
-        if (gp2 != null) {
-            if (deadband(gp2.getPadLeftY()) != 0) {
-                return gp2.getPadLeftY();
-            }
-        }
-
-        return 0d;
-    }
-
-    public double getStructureUp() {
-        if (gp1 != null) {
-            if (deadband(gp1.getPadRightY()) != 0) {
-                return gp1.getPadRightY();
-            }
-        }
-
-        if (gp2 != null) {
-            if (deadband(gp2.getPadRightY()) != 0) {
-                return gp2.getPadRightY();
-            }
-        }
-
-        return 0d;
     }
 
     // This affects drive and arm movement deadbands
