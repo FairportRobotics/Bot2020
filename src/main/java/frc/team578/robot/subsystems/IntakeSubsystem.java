@@ -13,7 +13,7 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
     private DoubleSolenoid intakeArmSolenoid;
     private WPI_TalonSRX feederTalon;
     DigitalInput intakeBallSensor = new DigitalInput(RobotMap.INTAKE_BALL_SENSOR);
-    DigitalInput intakeFullSensor = new DigitalInput(RobotMap.INTAKE_FULL_SENSOR;
+    DigitalInput intakeFullSensor = new DigitalInput(RobotMap.INTAKE_FULL_SENSOR);
 
 
     @Override

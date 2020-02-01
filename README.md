@@ -17,6 +17,29 @@ https://www.reddit.com/r/DidntKnowIWantedThat/comments/edgtw3/this_toy_train/?ut
 ![meme](https://i.redd.it/2ypmyswt57m31.png)
 -->
 
+# 2020 Button Ideas #
+
+* shooter - Single shot - single press button
+* shooter - All Shoot- hold down button
+* conveyor belt - spin in - hold button (sensors)
+* conveyor belt - spin out - hold button (sensor)
+* intake in - hold button
+* intake out - hold button
+* climb - hook deploy - single press button (to complete extend fast)
+* climb - hook deploy reverse - single press button (slow)
+* climb - transverse - joystick (analog)
+* climb - winch up - hold button
+* climb - winch down - hold button (for debugging)
+* control spinner - extend - push button
+* control spinner - retract - push button
+* control spinner - spin cw - hold button
+* control spinner - spin ccw - hold button
+* control spinner - run full distance - press button
+* control spinner - increment color - press button
+* drive - joy1
+* drive - joy2
+* drive - field/robo modes - trigger
+
 
 
 
