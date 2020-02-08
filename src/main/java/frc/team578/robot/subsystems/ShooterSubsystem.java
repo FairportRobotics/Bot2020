@@ -22,10 +22,13 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon = new WPI_TalonSRX(RobotMap.INTAKE_TALON);
     }
 
-    public void shoot() {
+    public void shootOneBall(){
+    }
+
+    public void shootAll() {
         shoot(defaultRPM);
     }
 
-    public void shoot(int rpm) {
+    private void shoot(int rpm) {
     }
 }

@@ -4,6 +4,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team578.robot.subsystems.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ public class Robot extends TimedRobot {
     public static IntakeSubsystem intakeSubsystem;
     public static ShooterSubsystem shooterSubsystem;
     public static ClimberSubsystem climberSubsystem;
+    public static SpinnerSubsystem spinnerSubsystem;
     public static GyroSubsystem gyroSubsystem;
     public static UsbCamera camera;
 
@@ -49,6 +51,10 @@ public class Robot extends TimedRobot {
             climberSubsystem = new ClimberSubsystem();
             climberSubsystem.initialize();
             log.info("Climber Subsystem Initialized");
+
+            spinnerSubsystem = new SpinnerSubsystem();
+            spinnerSubsystem.initialize();
+            log.info("Spinner Subsystem Initialized");
 
             camera = CameraServer.getInstance().startAutomaticCapture();
             // cam.setResolution(100, 75);
