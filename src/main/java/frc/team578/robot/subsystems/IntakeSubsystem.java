@@ -9,6 +9,7 @@ import frc.team578.robot.subsystems.interfaces.Initializable;
 
 public class IntakeSubsystem extends Subsystem implements Initializable {
 
+
     private WPI_TalonSRX intakeTalon;
     private DoubleSolenoid intakeArmSolenoid;
     private WPI_TalonSRX feederTalon;
