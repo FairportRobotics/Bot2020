@@ -21,41 +21,22 @@ public class RobotMap {
     public static final int RIGHT_JOYSTICK_ID = 3;
 
     // Pneumatics Control
-    public static final int PCM1 = 40;
-    public static final int PCM2 = 41;
+
 
 
     // Climber
-    public static final int PCM1_FRONT_CLIMB_UP = 1;
-    public static final int PCM1_FRONT_CLIMB_DOWN = 0;
-    public static final int PCM1_REAR_CLIMB_UP = 3;
-    public static final int PCM1_REAR_CLIMB_DOWN = 2;
-    public static final int PCM1_CUTOFF_OPEN = 4;
-    public static final int PCM1_CUTOFF_CLOSE = 5;
-    public static final int CLIMB_WHEELS_TALON_ID = 23;
-
-    // Intake
-    public static final int PCM1_INTAKE_OPEN = 7;
-    public static final int PCM1_INTAKE_CLOSED = 6;
-    public static final int PCM2_ARM_ONE_EXTEND = 1;
-    public static final int PCM2_ARM_ONE_RETRACT = 0;
-    public static final int PCM2_ARM_TWO_EXTEND = 3;
-    public static final int PCM2_ARM_TWO_RETRACT = 2;
-    public static int INTAKE_TALON = 20;
-
-    // Elevator
-    public static final int ELEVATOR_ARM_TALON = 22; // TODO: find talon value
-    public static final int ELEVATOR_STRUCTURE_TALON = 21; // TODO: find talon value
-
-    // ARM
-//    public static final int PCM_ARM_FIRST_EXTEND = -1;
-//    public static final int PCM_ARM_FIRST_RETRACT = -1;
-//    public static final int PCM_ARM_SECOND_EXTEND = -1;
-//    public static final int PCM_ARM_SECOND_RETRACT = -1;
 
 
-
-
-
-
+    // Intake / Feeder
+    public static int INTAKE_TALON = 99;
+    public static final int FEEDER_TALON = 99;
+    public static int PCM1 = 99;
+    public static int PCM1_INTAKE_UP = 99;
+    public static int PCM1_INTAKE_DOWN = 99;
+    public static int TRAVERSE_TALON = 99;
+    public static int WINCH_TALON = 99;
+    public static int PCM1_CLIMBER_UP = 99;
+    public static int PCM1_CLIMBER_DOWN = 99;
+    public static int INTAKE_FULL_SENSOR = 999;
+    public static int INTAKE_BALL_SENSOR = 999;
 }
