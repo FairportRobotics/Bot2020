@@ -24,6 +24,7 @@ public class Robot extends TimedRobot {
     public static SpinnerSubsystem spinnerSubsystem;
     public static GyroSubsystem gyroSubsystem;
     public static UsbCamera camera;
+    public static ConveyorSubsystem conveyorSubsystem;
 
     @Override
     public void robotInit() {
@@ -43,6 +44,10 @@ public class Robot extends TimedRobot {
             intakeSubsystem = new IntakeSubsystem();
             intakeSubsystem.initialize();
             log.info("Intake Subsystem Initialized");
+
+            conveyorSubsystem = new ConveyorSubsystem();
+            conveyorSubsystem.initialize();
+            log.info("Conveyor Subsystem Initialized");
 
             shooterSubsystem = new ShooterSubsystem();
             shooterSubsystem.initialize();

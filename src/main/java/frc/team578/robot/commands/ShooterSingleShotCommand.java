@@ -21,8 +21,7 @@ public class ShooterSingleShotCommand extends Command {
 
     @Override
     protected void execute() {
-        log.info("Exec ShooterSingleShotCommand");
-        Robot.shooterSubsystem.shootOneBall();
+        Robot.conveyorSubsystem.shootOnce(); // This should be a one call per button
     }
 
 

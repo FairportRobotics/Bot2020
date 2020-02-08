@@ -11,7 +11,7 @@ public class SpinInConveyorCommand extends Command {
     private static final Logger log = LogManager.getLogger(SpinInConveyorCommand.class);
 
     public SpinInConveyorCommand() {
-        requires(Robot.intakeSubsystem);
+        requires(Robot.conveyorSubsystem);
     }
 
     @Override
@@ -21,9 +21,7 @@ public class SpinInConveyorCommand extends Command {
 
     @Override
     protected void execute() {
-        log.info("Exec SpinInConveyorCommand");
-        // TODO: This method SHOULD be a toggle method, so add code to stop spinning
-        Robot.intakeSubsystem.feederSpinIn();
+        Robot.conveyorSubsystem.pollFeedInput();
     }
 
 
