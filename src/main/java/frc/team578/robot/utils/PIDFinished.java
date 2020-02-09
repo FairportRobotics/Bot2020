@@ -4,8 +4,10 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class PIDFinished<T> {
+    private static final long defaultCheckIntervalMillis = 50;
+    private static final int defaultStableCounts = 3;
     private long lastChecked = 0;
-    private long checkIntervalMillis = 10;
+    private long checkIntervalMillis = 0;
     private int successCount = 0;
     private int stableCounts = 0;
     private boolean finished = false;
@@ -13,6 +15,10 @@ public class PIDFinished<T> {
     private Supplier<T> supplyVal;
     private boolean lastTest;
     private T lastValue;
+
+    public PIDFinished(Supplier<T> supplyVal, Predicate<T> successTest) {
+        this(defaultCheckIntervalMillis,defaultStableCounts,supplyVal,successTest);
+    }
 
     public PIDFinished(long checkIntervalMillis, int stableCounts, Supplier<T> supplyVal, Predicate<T> successTest) {
         this.checkIntervalMillis = checkIntervalMillis;

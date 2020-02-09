@@ -28,6 +28,10 @@ import java.util.List;
  * number of degrees relative to the firld's orientation: 0 means straight ahead down the field, 90 means to the right, etc.
  */
 public class SwerveMath {
+
+    // The "Centric" mode for the robot
+    private CentricMode centricMode = CentricMode.FIELD;
+
     // Robot dimensions. Units are of no importance. Required
     private final double length;
     private final double width;
@@ -38,14 +42,12 @@ public class SwerveMath {
     // The scale factor to control robot maximum speed. Optional.
     private final double SCALE_SPEED = .85;
 
-    // The "Centric" mode for the robot
-    private CentricMode centricMode = CentricMode.ROBOT;
 
     public void setModeField() {
-        centricMode = frc.team578.robot.subsystems.swerve.math.CentricMode.FIELD;
+        centricMode = CentricMode.FIELD;
     }
     public void setModeRobot() {
-        centricMode = frc.team578.robot.subsystems.swerve.math.CentricMode.ROBOT;
+        centricMode = CentricMode.ROBOT;
     }
 
     /**

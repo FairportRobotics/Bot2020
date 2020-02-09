@@ -1,4 +1,4 @@
-package frc.team578.robot.commands;
+package frc.team578.robot.commands.debug;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

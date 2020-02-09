@@ -44,22 +44,6 @@ public class SwerveDrive implements UpdateDashboard {
     }
 
     /**
-     * Change the centric-mode of the robot (this can be done dynamically any time
-     * and will affect the robot behavior from that point on)
-     */
-//    public void setCentricMode(frc.team578.robot.subsystems.swerve.math.CentricMode centricMode) {
-//        this.swerveMath.setCentricMode(centricMode);
-//    }
-//
-//    public void setModeField() {
-//        this.swerveMath.setModeField();
-//    }
-//
-//    public CentricMode getCentricMode() {
-//        return this.swerveMath.getCentricMode();
-//    }
-
-    /**
      * move Moves the robot based on 3 inputs - fwd (forward), str(strafe), and
      * rcw(rotation clockwise) Inputs are between -1 and 1, with 1 being full power,
      * -1 being full reverse, and 0 being neutral. The method uses gyro for field
@@ -74,7 +58,7 @@ public class SwerveDrive implements UpdateDashboard {
     public void move(double fwd, double str, double rcw, Double gyroValue) {
         // Get the move command calculated
         List<SwerveDirective> swerveDirectives = swerveMath.move(fwd, str, rcw, gyroValue);
-        System.err.println("Move: " + fwd + "\nSteer: " + str + "\nRotate:" + rcw);
+        log.debug("Move: " + fwd + "\nSteer: " + str + "\nRotate:" + rcw);
         //Reversed left and right for fun
         swerveEnclosureFL.move(swerveDirectives.get(0).getSpeed(), swerveDirectives.get(0).getAngle());
         swerveEnclosureFR.move(swerveDirectives.get(1).getSpeed(), swerveDirectives.get(1).getAngle());

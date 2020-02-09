@@ -5,13 +5,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team578.robot.RobotMap;
-import frc.team578.robot.commands.SpinInConveyorCommand;
+import frc.team578.robot.commands.debug.ConveyorDebugSpinForwardCommand;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.utils.Timer2;
 
 /*
 Greg : I refactored some of this. The logic should be exactly the same, I just got rid of some of the redundant timer code by using
-a new class called Timer2 (based off the WPI class Time.
+a new class called Timer2 (based off the WPI class Time).
 
 Still have to hook in the shooter logic.
  */
@@ -57,7 +57,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new SpinInConveyorCommand());
+        setDefaultCommand(new ConveyorDebugSpinForwardCommand());
     }
 
     public void periodic() {
@@ -70,31 +70,31 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
                     timeStartWaiting.stop();
                     shootMode = ShootMode.SHOOTING;
                 }
-                forwardMove();
+                moveForward();
                 if (!shooterSensor.get()) // if ball in back sensor
                     timeStartWaiting.stop();
                 shootMode = ShootMode.SHOOTING;
                 break;
 
             case SHOOTING:
-                forwardMove();
+                moveForward();
                 if (shooterSensor.get()) // if ball to be shot is no longer in back sensor
                     shootMode = ShootMode.BACKING_UP;
                 break;
 
             case WAITING_NEXT_BALL:
-                forwardMove();
+                moveForward();
                 if (!shooterSensor.get()) // if next ball in back sensor
                     shootMode = ShootMode.BACKING_UP;
                 break;
 
             case BACKING_UP:
-                backwardMove();
+                moveBackward();
                 if (!timeStartWaiting.isRunning())
                     timeStartWaiting.start();
                 if (timeStartWaiting.hasPeriodPassed(WAIT_TIME_SEC)) { // if timeout
                     timeStartWaiting.stop();
-                    stopMove();
+                    stop();
                     shootMode = ShootMode.INTAKE;
                 }
                 if (!intakeSensor.get()) // if ball gets to front of intake
@@ -105,7 +105,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
             case CRADLE:
                 talon.set(ControlMode.PercentOutput,cradleSpeed);
                 if (intakeSensor.get()) { // if ball no longer front sensor
-                    stopMove();
+                    stop();
                     shootMode = ShootMode.INTAKE;
                     initDoneAfterShooting();
                 }
@@ -113,13 +113,13 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
             case INTAKE:
                 if (!shooterSensor.get()) {// if Ball in back sensor
-                    stopMove();
+                    stop();
                 } else if (!intakeSensor.get()) // if ball in front sensor
                     shootMode = ShootMode.INTAKING;
                 break;
 
             case INTAKING:
-                forwardMove();
+                moveForward();
                 if (!shooterSensor.get()) // if Ball in back sensor
                     shootMode = ShootMode.INTAKE;
                 if (intakeSensor.get()) // if ball no longer in front sensor
@@ -130,13 +130,14 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
         shootAfterButtonPush();
     }
 
-    public void forwardMove(){
+    public void moveForward(){
         talon.set(ControlMode.PercentOutput, -conveyorPower);
     }
-    public void backwardMove(){
+    public void moveBackward(){
         talon.set(ControlMode.PercentOutput, conveyorPower);
     }
-    public void stopMove(){
+    public void stop(){
+        // TODO : Should this be setting any state enums?
         talon.set(ControlMode.PercentOutput, 0);
     }
     private void shootAfterButtonPush() {
@@ -155,11 +156,11 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
         periodic();
     }
 
-//    public void shootOnce() {
+    public void shootOnce() {
 //        // shoot button pushed and belt not organizing balls
 //        if (!shootMode.isOrganizing()) {
 //            Robot.shooterSubsystem.spinToMaxRPM();
 //            shootMode = ShootMode.WAITING; // transition to waitingToShoot mode
 //        }
-//    }
+    }
 }

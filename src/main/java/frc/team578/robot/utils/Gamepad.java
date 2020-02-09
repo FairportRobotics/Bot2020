@@ -32,11 +32,58 @@ public class Gamepad extends Joystick {
     private static final int BUTTON_LEFT_STICK = 11;
     private static final int BUTTON_RIGHT_STICK = 12;
 
+    public final JoystickButton rb;
+    public final JoystickButton lb;
+    public final JoystickButton rt;
+    public final JoystickButton lt;
+    public final JoystickButton buttonA;
+    public final JoystickButton buttonB;
+    public final JoystickButton buttonX;
+    public final JoystickButton buttonY;
+    public final JoystickButton back;
+    public final JoystickButton start;
+
+
     /**
      * Constructor that creates a Joystick object.
      */
     public Gamepad(int gamepadPort) {
         super(gamepadPort);
+
+        rb = this.getRightShoulder();
+        lb = this.getLeftShoulder();
+        rt = this.getRightTriggerClick();
+        lt = this.getLeftTriggerClick();
+        buttonA = this.getButtonA();
+        buttonB = this.getButtonB();
+        buttonX = this.getButtonX();
+        buttonY = this.getButtonY();
+        back = this.getBackButton();
+        start = this.getStartButton();
+
+    }
+
+    public double getPadLeftX() {
+        return this.getLeftX();
+    }
+
+    public double getPadLeftY() {
+        return this.getLeftY();
+    }
+
+    public double getPadRightX() {
+        return this.getRightX();
+    }
+
+    public double getPadRightY() {
+        return this.getRightY();
+    }
+
+    // This affects drive and arm movement deadbands
+    final double DEADBAND = 0.05;
+    public double deadband(double value) {
+        if (Math.abs(value) < DEADBAND) return 0.0;
+        return value;
     }
 
     /**

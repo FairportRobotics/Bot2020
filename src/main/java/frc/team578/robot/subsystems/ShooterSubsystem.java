@@ -62,13 +62,15 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon.setSelectedSensorPosition(0);
         shooterTalon.setNeutralMode(NeutralMode.Coast);
 
+        // Set up PID checker for derivative
         Supplier<Double> derivSupplier = shooterTalon::getErrorDerivative;
         Predicate<Double> derivPredicate = deriv -> (deriv < 1 && deriv > -1);
-        pidFinishRPMDerivative = new PIDFinished<>(50, 3, derivSupplier, derivPredicate);
+        pidFinishRPMDerivative = new PIDFinished<>(derivSupplier, derivPredicate);
 
+        // Set up PID checker for target error
         Supplier<Integer> cleSupplier = shooterTalon::getClosedLoopError;
         Predicate<Integer> clePredicate = clte -> (clte < 50 && clte > -50);
-        pidFinishRPMTarget = new PIDFinished<>(50, 3, cleSupplier, clePredicate);
+        pidFinishRPMTarget = new PIDFinished<>(cleSupplier, clePredicate);
     }
 
     public void spinToRPM(int rpm) {

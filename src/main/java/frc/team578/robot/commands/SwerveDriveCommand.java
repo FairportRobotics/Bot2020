@@ -60,7 +60,6 @@ public class SwerveDriveCommand extends Command {
     @Override
     protected void interrupted() {
         log.info("SwerveDriveCommand Interrupted");
-
     }
 
 }

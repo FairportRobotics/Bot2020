@@ -1,4 +1,4 @@
-package frc.team578.robot.commands;
+package frc.team578.robot.commands.debug;
 
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -6,22 +6,22 @@ import frc.team578.robot.Robot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SpinOutConveyorCommand extends Command {
+public class ConveyorDebugSpinBackwardsCommand extends Command {
 
-    private static final Logger log = LogManager.getLogger(SpinOutConveyorCommand.class);
+    private static final Logger log = LogManager.getLogger(ConveyorDebugSpinBackwardsCommand.class);
 
-    public SpinOutConveyorCommand() {
+    public ConveyorDebugSpinBackwardsCommand() {
         requires(Robot.intakeSubsystem);
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing SpinOutConveyorCommand");
+        log.info("Initializing ConveyorDebugSpinBackwardsCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec SpinOutConveyorCommand");
+        log.info("Exec ConveyorDebugSpinBackwardsCommand");
         // TODO: This method SHOULD be a toggle method, so add code to stop spinning
         Robot.intakeSubsystem.feederSpinOut();
     }
@@ -29,7 +29,7 @@ public class SpinOutConveyorCommand extends Command {
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted SpinOutConveyorCommand");
+        log.info("Interrupted ConveyorDebugSpinBackwardsCommand");
     }
 
     @Override
@@ -39,6 +39,6 @@ public class SpinOutConveyorCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending SpinOutConveyorCommand " + timeSinceInitialized());
+        log.info("Ending ConveyorDebugSpinBackwardsCommand " + timeSinceInitialized());
     }
 }

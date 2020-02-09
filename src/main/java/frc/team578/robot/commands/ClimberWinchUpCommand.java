@@ -6,30 +6,29 @@ import frc.team578.robot.Robot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WinchDownCommand extends Command {
+public class ClimberWinchUpCommand extends Command {
 
-    private static final Logger log = LogManager.getLogger(WinchDownCommand.class);
+    private static final Logger log = LogManager.getLogger(ClimberWinchUpCommand.class);
 
-    public WinchDownCommand() {
+    public ClimberWinchUpCommand() {
         requires(Robot.climberSubsystem);
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing WinchDownCommand");
+        log.info("Initializing ClimberWinchUpCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec WinchDownCommand");
-        // TODO: This method SHOULD be a toggle method, so add code to stop spinning
-        Robot.climberSubsystem.winchDown();
+        log.info("Exec ClimberWinchUpCommand");
+        Robot.climberSubsystem.winchUp();
     }
-
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted WinchDownCommand");
+        log.info("Interrupted ClimberWinchUpCommand");
+        Robot.climberSubsystem.winchStop();
     }
 
     @Override
@@ -39,6 +38,6 @@ public class WinchDownCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending WinchDownCommand " + timeSinceInitialized());
+        log.info("Ending ClimberWinchUpCommand " + timeSinceInitialized());
     }
 }

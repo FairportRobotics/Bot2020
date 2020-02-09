@@ -75,6 +75,5 @@ public class GyroSubsystem extends Subsystem implements Initializable, UpdateDas
     @Override
     public void updateDashboard() {
         SmartDashboard.putNumber("gyro.heading", getHeading());
-        SmartDashboard.putNumber("gyro.tilt", getTilt());
     }
 }
