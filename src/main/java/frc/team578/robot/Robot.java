@@ -117,19 +117,14 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-
         Robot.swerveDriveSubsystem.stop();
         Robot.swerveDriveSubsystem.setModeField();
-
     }
 
     @Override
     public void teleopPeriodic() {
-
-
         updateAllDashboards();
         Scheduler.getInstance().run();
-
     }
 
     @Override
