@@ -43,7 +43,7 @@ public class PIDFinished<T> {
     }
 
 
-    public boolean getFinished() {
+    public boolean getFinishedStatus() {
         return this.finished;
     }
 

@@ -23,7 +23,7 @@ public class ShooterShootAllCommand extends Command {
     protected void execute() {
         log.info("Exec ShooterShootAllCommand");
         // TODO: This method SHOULD be a toggle method, so add code to stop spinning
-        Robot.shooterSubsystem.shootAll();
+//        Robot.shooterSubsystem.shootAll();
     }
 
 

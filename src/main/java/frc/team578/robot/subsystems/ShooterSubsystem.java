@@ -3,21 +3,24 @@ package frc.team578.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
+import frc.team578.robot.utils.PIDFinished;
+
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class ShooterSubsystem extends Subsystem implements Initializable {
 
-    int target = 1000;
-    int kTimeoutMs = 0;
     private WPI_TalonSRX shooterTalon;
-    int defaultRPM = 999;
+    private double nominalRPM = 500;
+    private double maxRPM = 2000;
+    private int kTimeoutMs = 0;
+    private PIDFinished<Double> pidFinishRPMDerivative;
+    private PIDFinished<Integer> pidFinishRPMTarget;
 
-    // TODO : How are we allowing a ball to be fed into the shooter?
 
     @Override
     protected void initDefaultCommand() {
@@ -27,8 +30,8 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     public void initialize() {
 
         shooterTalon = new WPI_TalonSRX(RobotMap.INTAKE_TALON);
-        shooterTalon = new WPI_TalonSRX(1);
-//    joystick = new Joystick(0);
+        shooterTalon.configFactoryDefault();
+        shooterTalon.set(ControlMode.Current,0);
 
         // Type of encoder, ID of the PID loop, timeout in ms to wait to report if failure
         shooterTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, kTimeoutMs);
@@ -47,7 +50,8 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon.configNominalOutputForward(0, kTimeoutMs);
         shooterTalon.configNominalOutputReverse(0, kTimeoutMs);
         shooterTalon.configPeakOutputForward(1, kTimeoutMs);
-        shooterTalon.configPeakOutputReverse(-1, kTimeoutMs);
+        shooterTalon.configPeakOutputReverse(0, kTimeoutMs); // No Reverse Power
+
 
         /* Config the Velocity closed loop gains in slot0 */
         shooterTalon.config_kF(0, kF, kTimeoutMs);
@@ -56,22 +60,39 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon.config_kD(0, kD, kTimeoutMs);
         shooterTalon.config_IntegralZone(0, iZone, kTimeoutMs);
         shooterTalon.setSelectedSensorPosition(0);
-
-        // TODO : Lets try these values (override reverse above)
         shooterTalon.setNeutralMode(NeutralMode.Coast);
-        shooterTalon.configPeakOutputReverse(0, kTimeoutMs);
 
+        Supplier<Double> derivSupplier = shooterTalon::getErrorDerivative;
+        Predicate<Double> derivPredicate = deriv -> (deriv < 1 && deriv > -1);
+        pidFinishRPMDerivative = new PIDFinished<>(50, 3, derivSupplier, derivPredicate);
+
+        Supplier<Integer> cleSupplier = shooterTalon::getClosedLoopError;
+        Predicate<Integer> clePredicate = clte -> (clte < 50 && clte > -50);
+        pidFinishRPMTarget = new PIDFinished<>(50, 3, cleSupplier, clePredicate);
     }
 
-    public void shootOneBall(){
-    }
-
-    public void shootAll() {
-        shoot(defaultRPM);
-    }
-
-    private void shoot(int rpm) {
+    public void spinToRPM(int rpm) {
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(rpm));
+    }
+
+    public void stop() {
+        shooterTalon.set(ControlMode.Current, 0);
+    }
+
+    public void spinToNominalRPM() {
+        shooterTalon.set(ControlMode.Velocity, RPMsToVel(nominalRPM));
+    }
+
+    public void spinToMaxRPM() {
+        shooterTalon.set(ControlMode.Velocity, RPMsToVel(maxRPM));
+    }
+
+    public boolean isRPMDerivativeSettled() {
+        return pidFinishRPMDerivative.isStable();
+    }
+
+    public boolean isRPMTargetSettled() {
+        return pidFinishRPMTarget.isStable();
     }
 
     private double RPMsToVel(double RPMs) {

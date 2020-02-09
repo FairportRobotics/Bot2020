@@ -3,33 +3,40 @@ package frc.team578.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team578.robot.Robot;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.commands.SpinInConveyorCommand;
 import frc.team578.robot.subsystems.interfaces.Initializable;
+import frc.team578.robot.utils.Timer2;
+
+/*
+Greg : I refactored some of this. The logic should be exactly the same, I just got rid of some of the redundant timer code by using
+a new class called Timer2 (based off the WPI class Time.
+
+Still have to hook in the shooter logic.
+ */
 
 public class ConveyorSubsystem extends Subsystem implements Initializable {
 
     private ShootMode shootMode;
     private WPI_TalonSRX talon;
     private DigitalInput intakeSensor, shooterSensor;
-    private Joystick joystick;
-    private long timeStartWaiting;
-    private final double WAIT_TIME_SEC = 2;
-    private final double power = .5;
+
+
+    private Timer2 timeStartWaiting = new Timer2();
+    private Timer2 doneShootingTime = new Timer2();
     private final long TIME_AFTER_SHOOTING_SEC = 1;
-    private long doneShootingTime;
+    private final double WAIT_TIME_SEC = 2;
+    private final double conveyorPower = .5;
+    private final double cradleSpeed =  -.15;
+
 
     @Override
     public void initialize() {
+        talon = new WPI_TalonSRX(RobotMap.CONVEYOR_FEEDER_TALON);
         shooterSensor = new DigitalInput(RobotMap.CONVEYOR_SHOOTER_SENSOR);
         intakeSensor = new DigitalInput(RobotMap.CONVEYOR_INTAKE_SENSOR);
-        talon = new WPI_TalonSRX(RobotMap.CONVEYOR_FEEDER_TALON);
         shootMode = ShootMode.INTAKE;
-        timeStartWaiting = -1;
-        doneShootingTime = -1;
     }
 
     enum ShootMode {
@@ -41,6 +48,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
         INTAKE,
         INTAKING;
 
+        // TODO : Not Being Called?
         public boolean isOrganizing() {
             return this == WAITING || this == SHOOTING || this == WAITING_NEXT_BALL || this == BACKING_UP || this == CRADLE;
         }
@@ -56,15 +64,15 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
         switch(shootMode) {
             case WAITING:
-                if (timeStartWaiting == -1)
-                    timeStartWaiting = System.currentTimeMillis();
-                if (System.currentTimeMillis() - timeStartWaiting > (WAIT_TIME_SEC * 1000)) { // if timeout
-                    timeStartWaiting = -1;
+                if (!timeStartWaiting.isRunning())
+                    timeStartWaiting.start();
+                if (timeStartWaiting.hasPeriodPassed(WAIT_TIME_SEC)) { // if timeout
+                    timeStartWaiting.stop();
                     shootMode = ShootMode.SHOOTING;
                 }
                 forwardMove();
                 if (!shooterSensor.get()) // if ball in back sensor
-                    timeStartWaiting = -1;
+                    timeStartWaiting.stop();
                 shootMode = ShootMode.SHOOTING;
                 break;
 
@@ -82,20 +90,20 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
             case BACKING_UP:
                 backwardMove();
-                if (timeStartWaiting == -1)
-                    timeStartWaiting = System.currentTimeMillis();
-                if (System.currentTimeMillis() - timeStartWaiting > (WAIT_TIME_SEC * 1000)) { // if timeout
-                    timeStartWaiting = -1;
+                if (!timeStartWaiting.isRunning())
+                    timeStartWaiting.start();
+                if (timeStartWaiting.hasPeriodPassed(WAIT_TIME_SEC)) { // if timeout
+                    timeStartWaiting.stop();
                     stopMove();
                     shootMode = ShootMode.INTAKE;
                 }
                 if (!intakeSensor.get()) // if ball gets to front of intake
-                    timeStartWaiting = -1;
+                    timeStartWaiting.stop();
                 shootMode = ShootMode.CRADLE;
                 break;
 
             case CRADLE:
-                talon.set(ControlMode.PercentOutput, -.15);
+                talon.set(ControlMode.PercentOutput,cradleSpeed);
                 if (intakeSensor.get()) { // if ball no longer front sensor
                     stopMove();
                     shootMode = ShootMode.INTAKE;
@@ -123,39 +131,35 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
     }
 
     public void forwardMove(){
-        talon.set(ControlMode.PercentOutput, -power);
+        talon.set(ControlMode.PercentOutput, -conveyorPower);
     }
     public void backwardMove(){
-        talon.set(ControlMode.PercentOutput, power);
+        talon.set(ControlMode.PercentOutput, conveyorPower);
     }
     public void stopMove(){
         talon.set(ControlMode.PercentOutput, 0);
     }
     private void shootAfterButtonPush() {
-        if(doneShootingTime != -1) {
-            if (System.currentTimeMillis() >= doneShootingTime + TIME_AFTER_SHOOTING_SEC * 1000 && doneShootingTime != -1)
-                doneShootingTime = -1;
+        if(doneShootingTime.isRunning() && doneShootingTime.hasPeriodPassed(TIME_AFTER_SHOOTING_SEC)) {
+            // if (System.currentTimeMillis() >= doneShootingTime + TIME_AFTER_SHOOTING_SEC * 1000 && doneShootingTime != -1)
+                doneShootingTime.stop();
             // TODO : shooter rev motor, actusally have it stop aboave method though since its more like a boolean
           //  subsistem.shootingmotorthing
         }
     }
     private void initDoneAfterShooting(){
-        doneShootingTime = System.currentTimeMillis();
+        doneShootingTime.start();
     }
 
     public void pollFeedInput() {
         periodic();
     }
 
-    public void shootOnce() {
-
-
-        // shoot button pushed and belt not organizing balls
-        if (!shootMode.isOrganizing()) {
-            Robot.shooterSubsystem.startUpShooter();
-            shootMode = ShootMode.WAITING; // transition to waitingToShoot mode
-        }
-    }
-
-
+//    public void shootOnce() {
+//        // shoot button pushed and belt not organizing balls
+//        if (!shootMode.isOrganizing()) {
+//            Robot.shooterSubsystem.spinToMaxRPM();
+//            shootMode = ShootMode.WAITING; // transition to waitingToShoot mode
+//        }
+//    }
 }
