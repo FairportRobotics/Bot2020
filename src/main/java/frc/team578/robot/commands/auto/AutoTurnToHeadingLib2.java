@@ -27,5 +27,9 @@ public class AutoTurnToHeadingLib2 extends PIDCommand  {
                 .setTolerance(1, 1);
     }
 
-
+    @Override
+    public boolean isFinished() {
+        // End when the controller is at the reference.
+        return getController().atSetpoint();
+    }
 }
