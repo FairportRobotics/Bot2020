@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class ShooterSubsystem extends Subsystem implements Initializable {
 
     private WPI_TalonSRX shooterTalon;
-    private double nominalRPM = 500;
+    private double defaultRPM = 500;
     private double maxRPM = 2000;
     private int kTimeoutMs = 0;
     private PIDFinished<Double> pidFinishRPMDerivative;
@@ -73,6 +73,9 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         pidFinishRPMTarget = new PIDFinished<>(cleSupplier, clePredicate);
     }
 
+    /*
+     Spinning Related
+     */
     public void spinToRPM(int rpm) {
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(rpm));
     }
@@ -81,12 +84,20 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon.set(ControlMode.Current, 0);
     }
 
-    public void spinToNominalRPM() {
-        shooterTalon.set(ControlMode.Velocity, RPMsToVel(nominalRPM));
+    public void spinToDefaultRPM() {
+        shooterTalon.set(ControlMode.Velocity, RPMsToVel(defaultRPM));
     }
 
     public void spinToMaxRPM() {
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(maxRPM));
+    }
+
+    /*
+    Checks
+     */
+
+    public boolean isTargetSet() {
+        return (shooterTalon.getControlMode() == ControlMode.Velocity);
     }
 
     public boolean isRPMDerivativeSettled() {
@@ -96,6 +107,20 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     public boolean isRPMTargetSettled() {
         return pidFinishRPMTarget.isStable();
     }
+
+    public boolean isAtTargetRPM() {
+        if (!isTargetSet()) {
+            // with no target, just say yes
+            return true;
+        } else {
+            // wait for these to say we're done
+            return isRPMDerivativeSettled() && isRPMTargetSettled();
+        }
+    }
+
+    /*
+    Calcs
+     */
 
     private double RPMsToVel(double RPMs) {
         return (RPMs * 2048.0) / 600;

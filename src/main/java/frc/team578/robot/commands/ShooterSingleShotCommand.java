@@ -2,41 +2,18 @@ package frc.team578.robot.commands;
 
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team578.robot.Robot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ShooterSingleShotCommand extends Command {
-
-    private static final Logger log = LogManager.getLogger(ShooterSingleShotCommand.class);
+public class ShooterSingleShotCommand extends CommandGroup {
 
     public ShooterSingleShotCommand() {
-        requires(Robot.shooterSubsystem);
+        addSequential(new ShooterToDefaultRPMCommand());
+        addSequential(new ShooterWaitForSpinUp(3));
+        addSequential(new ConveyorAdvanceSingleBall());
+        // TODO : Spin Down Shooter?
     }
 
-    @Override
-    protected void initialize() {
-        log.info("Initializing ShooterSingleShotCommand");
-    }
-
-    @Override
-    protected void execute() {
-        Robot.conveyorSubsystem.shootOnce(); // This should be a one call per button
-    }
-
-
-    @Override
-    protected void interrupted() {
-        log.info("Interrupted ShooterSingleShotCommand");
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        log.info("Ending ShooterSingleShotCommand " + timeSinceInitialized());
-    }
 }

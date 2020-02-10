@@ -1,0 +1,42 @@
+package frc.team578.robot.commands;
+
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team578.robot.Robot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class ConveyorAdvanceSingleBall extends Command {
+
+    private static final Logger log = LogManager.getLogger(HookDeployReverseCommand.class);
+
+    public ConveyorAdvanceSingleBall() {
+        requires(Robot.conveyorSubsystem);
+    }
+
+    @Override
+    protected void initialize() {
+        log.info("Initializing ConveyorAdvanceSingleBall");
+    }
+
+    @Override
+    protected void execute() {
+        log.info("Exec ConveyorAdvanceSingleBall");
+        // TODO
+    }
+
+
+    @Override
+    protected void interrupted() {
+        log.info("Interrupted ConveyorAdvanceSingleBall");
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false; // TODO fix
+    }
+
+    @Override
+    protected void end() {
+        log.info("Ending ConveyorAdvanceSingleBall " + timeSinceInitialized());
+    }
+}
