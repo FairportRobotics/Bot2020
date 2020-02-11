@@ -37,13 +37,13 @@ public class Robot extends TimedRobot {
             gyroSubsystem.initialize();
             log.info("Gyro Subsystem Initialized");
 
-            swerveDriveSubsystem = new SwerveDriveSubsystem();
-            swerveDriveSubsystem.initialize();
-            log.info("Swerve Drive Subsystem Initialized");
+//            swerveDriveSubsystem = new SwerveDriveSubsystem();
+//            swerveDriveSubsystem.initialize();
+//            log.info("Swerve Drive Subsystem Initialized");
 
-            intakeSubsystem = new IntakeSubsystem();
-            intakeSubsystem.initialize();
-            log.info("Intake Subsystem Initialized");
+//            intakeSubsystem = new IntakeSubsystem();
+//            intakeSubsystem.initialize();
+//            log.info("Intake Subsystem Initialized");
 
             conveyorSubsystem = new ConveyorSubsystem();
             conveyorSubsystem.initialize();
@@ -53,18 +53,18 @@ public class Robot extends TimedRobot {
             shooterSubsystem.initialize();
             log.info("Shooter Subsystem Initialized");
 
-            climberSubsystem = new ClimberSubsystem();
-            climberSubsystem.initialize();
-            log.info("Climber Subsystem Initialized");
+//            climberSubsystem = new ClimberSubsystem();
+//            climberSubsystem.initialize();
+//            log.info("Climber Subsystem Initialized");
 
-            spinnerSubsystem = new SpinnerSubsystem();
-            spinnerSubsystem.initialize();
-            log.info("Spinner Subsystem Initialized");
+//            spinnerSubsystem = new SpinnerSubsystem();
+//            spinnerSubsystem.initialize();
+//            log.info("Spinner Subsystem Initialized");
 
-            camera = CameraServer.getInstance().startAutomaticCapture();
-            // cam.setResolution(100, 75);
-            // cam.setFPS(-1);
-            log.info("Initialized Camera");
+//            camera = CameraServer.getInstance().startAutomaticCapture();
+//            // cam.setResolution(100, 75);
+//            // cam.setFPS(-1);
+//            log.info("Initialized Camera");
 
             oi = new OI();
             oi.initialize();
@@ -103,8 +103,8 @@ public class Robot extends TimedRobot {
           TODO : Do we want to lower the arm at the beginning (or is this manual)
          */
 
-        Robot.swerveDriveSubsystem.stop();
-        Robot.swerveDriveSubsystem.setModeRobot();
+//        Robot.swerveDriveSubsystem.stop();
+//        Robot.swerveDriveSubsystem.setModeRobot();
 
     }
 
@@ -117,8 +117,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        Robot.swerveDriveSubsystem.stop();
-        Robot.swerveDriveSubsystem.setModeField();
+//        Robot.swerveDriveSubsystem.stop();
+//        Robot.swerveDriveSubsystem.setModeField();
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
 
 
     public void updateAllDashboards() {
-        Robot.swerveDriveSubsystem.updateDashboard();
+//        Robot.swerveDriveSubsystem.updateDashboard();
         Robot.gyroSubsystem.updateDashboard();
     }
 }

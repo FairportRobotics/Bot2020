@@ -11,7 +11,7 @@ public class ConveyorDebugSpinBackwardsCommand extends Command {
     private static final Logger log = LogManager.getLogger(ConveyorDebugSpinBackwardsCommand.class);
 
     public ConveyorDebugSpinBackwardsCommand() {
-        requires(Robot.intakeSubsystem);
+        requires(Robot.conveyorSubsystem);
     }
 
     @Override
@@ -22,14 +22,14 @@ public class ConveyorDebugSpinBackwardsCommand extends Command {
     @Override
     protected void execute() {
         log.info("Exec ConveyorDebugSpinBackwardsCommand");
-        // TODO: This method SHOULD be a toggle method, so add code to stop spinning
-        Robot.intakeSubsystem.feederSpinOut();
+        Robot.conveyorSubsystem.moveBackward();
     }
 
 
     @Override
     protected void interrupted() {
         log.info("Interrupted ConveyorDebugSpinBackwardsCommand");
+        Robot.conveyorSubsystem.stop();
     }
 
     @Override

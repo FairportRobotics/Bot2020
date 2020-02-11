@@ -46,11 +46,7 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
         intakeTalon.set(ControlMode.PercentOutput, -spinIntakeOutPower);
     }
 
-    public void feederSpinIn() {
-    }
 
-    public void feederSpinOut() {
-    }
 
 
 }

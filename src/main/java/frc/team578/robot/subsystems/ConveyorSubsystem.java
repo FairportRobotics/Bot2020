@@ -60,7 +60,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new ConveyorDebugSpinForwardCommand());
+//        setDefaultCommand(new ConveyorDebugSpinForwardCommand());
     }
 
     public void periodic() {
@@ -134,10 +134,10 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
     }
 
     public void moveForward(){
-        conveyorTalon.set(ControlMode.PercentOutput, -conveyorPower);
+        conveyorTalon.set(ControlMode.PercentOutput, conveyorPower);
     }
     public void moveBackward(){
-        conveyorTalon.set(ControlMode.PercentOutput, conveyorPower);
+        conveyorTalon.set(ControlMode.PercentOutput, -conveyorPower);
     }
     public void stop(){
         // TODO : Should this be setting any state enums?

@@ -29,7 +29,7 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     @Override
     public void initialize() {
 
-        shooterTalon = new WPI_TalonSRX(RobotMap.INTAKE_TALON);
+        shooterTalon = new WPI_TalonSRX(RobotMap.SHOOTER_TALON_FALCON);
         shooterTalon.configFactoryDefault();
         shooterTalon.set(ControlMode.Current,0);
 

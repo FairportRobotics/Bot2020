@@ -21,26 +21,26 @@ public class OI implements Initializable {
 
     public void initialize() {
         /* Driver */
-        leftTrigger.whenPressed(new CentricModeRobotCommand());
-        rightTrigger.whenPressed(new CentricModeFieldCommand());
+//        leftTrigger.whenPressed(new CentricModeRobotCommand());
+//        rightTrigger.whenPressed(new CentricModeFieldCommand());
 
         /* Operator */
         // Big Boi
         // Hook commands
-        ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
-        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
+//        ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
+//        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
         // Intake commands
-        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
-        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
+//        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
+//        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
         // Shooter commands
-        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
-        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
+//        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
+//        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
         // Spinner commands
-        ob1.five.whenPressed(new SpinnerArmExtendCommand()); // Press to extend the spinner arm
-        ob1.nine.whenPressed(new SpinnerArmRetractCommand()); // Press to retract the spinner arm
+//        ob1.five.whenPressed(new SpinnerArmExtendCommand()); // Press to extend the spinner arm
+//        ob1.nine.whenPressed(new SpinnerArmRetractCommand()); // Press to retract the spinner arm
         // Winch commands
-        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
-        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
+//        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
+//        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
 
         // Leftover Commands that we still need buttons for
         // Spinner commands
@@ -56,8 +56,8 @@ public class OI implements Initializable {
         gp1.buttonX.whileHeld(new ShooterDebugMaxRPMCommand()); // Hold to spin in conveyor belt
         gp1.buttonY.whileHeld(new ShooterDebugStopCommand()); // Hold to spin out conveyor belt
 
-        gp1.lb.whenPressed(new IntakeArmDownCommand());
-        gp1.rb.whenPressed(new IntakeArmUpCommand());
+//        gp1.lb.whenPressed(new IntakeArmDownCommand());
+//        gp1.rb.whenPressed(new IntakeArmUpCommand());
 
     }
 

@@ -28,24 +28,27 @@ public class RobotMap {
 
 
     // Intake / Feeder
-    public static final int INTAKE_TALON = 99;
+    public static final int INTAKE_TALON = 3;
 
     // Climber
     public static final int PCM1 = 99;
     public static final int PCM1_INTAKE_UP = 99;
     public static final int PCM1_INTAKE_DOWN = 99;
     public static final int TRAVERSE_TALON = 99;
-    public static final int WINCH_TALON = 99;
+    public static final int WINCH_TALON = 5;
     public static final int PCM1_CLIMBER_UP = 99;
     public static final int PCM1_CLIMBER_DOWN = 99;
 
     // Conveyor
-    public static final int CONVEYOR_FEEDER_TALON = 99;
-    public static final int CONVEYOR_INTAKE_SENSOR = 999;
-    public static final int CONVEYOR_SHOOTER_SENSOR = 999;
+    public static final int CONVEYOR_FEEDER_TALON = 2;
+    public static final int CONVEYOR_INTAKE_SENSOR = 0;
+    public static final int CONVEYOR_SHOOTER_SENSOR = 1;
 
     // Spinner
     public static final int SPINNER_TALON = 999;
     public static final int PCM1_SPINNER_EXTENDED = 999;
     public static final int PCM1_SPINNER_RETRACTED = 999;
+
+    //Shooter
+    public static final int SHOOTER_TALON_FALCON = 1;
 }

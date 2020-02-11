@@ -16,5 +16,5 @@ public class TalonUtil {
         return talon;
     }
 
-    
+
 }
