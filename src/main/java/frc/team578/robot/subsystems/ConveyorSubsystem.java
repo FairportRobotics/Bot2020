@@ -1,6 +1,7 @@
 package frc.team578.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,7 +20,7 @@ Still have to hook in the shooter logic.
 public class ConveyorSubsystem extends Subsystem implements Initializable {
 
     private ShootMode shootMode;
-    private WPI_TalonSRX talon;
+    private WPI_TalonSRX conveyorTalon;
     private DigitalInput intakeSensor, shooterSensor;
 
 
@@ -33,7 +34,9 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 
     @Override
     public void initialize() {
-        talon = new WPI_TalonSRX(RobotMap.CONVEYOR_FEEDER_TALON);
+        conveyorTalon = new WPI_TalonSRX(RobotMap.CONVEYOR_FEEDER_TALON);
+        conveyorTalon.configFactoryDefault();
+        conveyorTalon.setNeutralMode(NeutralMode.Brake);
         shooterSensor = new DigitalInput(RobotMap.CONVEYOR_SHOOTER_SENSOR);
         intakeSensor = new DigitalInput(RobotMap.CONVEYOR_INTAKE_SENSOR);
         shootMode = ShootMode.INTAKE;
@@ -103,7 +106,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
                 break;
 
             case CRADLE:
-                talon.set(ControlMode.PercentOutput,cradleSpeed);
+                conveyorTalon.set(ControlMode.PercentOutput,cradleSpeed);
                 if (intakeSensor.get()) { // if ball no longer front sensor
                     stop();
                     shootMode = ShootMode.INTAKE;
@@ -131,14 +134,14 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
     }
 
     public void moveForward(){
-        talon.set(ControlMode.PercentOutput, -conveyorPower);
+        conveyorTalon.set(ControlMode.PercentOutput, -conveyorPower);
     }
     public void moveBackward(){
-        talon.set(ControlMode.PercentOutput, conveyorPower);
+        conveyorTalon.set(ControlMode.PercentOutput, conveyorPower);
     }
     public void stop(){
         // TODO : Should this be setting any state enums?
-        talon.set(ControlMode.PercentOutput, 0);
+        conveyorTalon.set(ControlMode.PercentOutput, 0);
     }
     private void shootAfterButtonPush() {
         if(doneShootingTime.isRunning() && doneShootingTime.hasPeriodPassed(TIME_AFTER_SHOOTING_SEC)) {

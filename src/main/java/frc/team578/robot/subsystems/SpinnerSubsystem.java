@@ -1,5 +1,7 @@
 package frc.team578.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,6 +20,9 @@ public class SpinnerSubsystem extends Subsystem implements Initializable {
     @Override
     protected void initDefaultCommand() {
         spinnerTalon = new WPI_TalonSRX(RobotMap.SPINNER_TALON);
+        spinnerTalon.configFactoryDefault();
+        spinnerTalon.set(ControlMode.Current,0);
+        spinnerTalon.setNeutralMode(NeutralMode.Brake);
         spinnerSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_SPINNER_EXTENDED, RobotMap.PCM1_SPINNER_RETRACTED);
     }
 

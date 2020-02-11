@@ -39,11 +39,14 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     }
 
     public void deployClimber() {
-        // Fast
+        // Fast  -  Not sure how to make this fast or slow, it's a solenoid, it does whatever the air wants
+        climberSolenoid.set(DoubleSolenoid.Value.kForward);
+        // deployClimber and retractClimber should function, they may need to be switched after testing.
     }
 
     public void retractClimber() {
-        // Slow
+        // Slow  -  Not sure how to make this fast or slow, it's a solenoid, it does whatever the air wants
+        climberSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void winchUp() {
