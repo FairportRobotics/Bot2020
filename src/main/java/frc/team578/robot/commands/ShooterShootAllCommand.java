@@ -1,42 +1,14 @@
 package frc.team578.robot.commands;
 
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.team578.robot.Robot;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ShooterShootAllCommand extends Command {
+public class ShooterShootAllCommand extends CommandGroup {
 
-    private static final Logger log = LogManager.getLogger(ShooterShootAllCommand.class);
-
-    public ShooterShootAllCommand() {
-        requires(Robot.shooterSubsystem);
-    }
-
-    @Override
-    protected void initialize() {
-        log.info("Initializing ShooterShootAllCommand");
-    }
-
-    @Override
-    protected void execute() {
-        log.info("Exec ShooterShootAllCommand");
-    }
+public ShooterShootAllCommand() {
+    addSequential(new ShooterToDefaultRPMCommand());
+    addSequential(new ConveyorSpinToShooterCommand());
+}
 
 
-    @Override
-    protected void interrupted() {
-        log.info("Interrupted ShooterShootAllCommand");
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        log.info("Ending ShooterShootAllCommand " + timeSinceInitialized());
-    }
 }
