@@ -53,9 +53,9 @@ public class Robot extends TimedRobot {
             shooterSubsystem.initialize();
             log.info("Shooter Subsystem Initialized");
 
-//            climberSubsystem = new ClimberSubsystem();
-//            climberSubsystem.initialize();
-//            log.info("Climber Subsystem Initialized");
+            climberSubsystem = new ClimberSubsystem();
+            climberSubsystem.initialize();
+            log.info("Climber Subsystem Initialized");
 
 //            spinnerSubsystem = new SpinnerSubsystem();
 //            spinnerSubsystem.initialize();

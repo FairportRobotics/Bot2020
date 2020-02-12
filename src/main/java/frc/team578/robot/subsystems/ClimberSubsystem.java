@@ -14,22 +14,22 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     private WPI_TalonSRX winchTalon;
     private DoubleSolenoid climberSolenoid;
 
-    private final double winchUpSpeed = .3;
-    private final double winchDownSpeed = -.3;
+    private final double winchUpSpeed = .5;
+    private final double winchDownSpeed = -.5;
 
     @Override
     public void initialize() {
-    }
-
-    @Override
-    protected void initDefaultCommand() {
         winchTalon = new WPI_TalonSRX(RobotMap.WINCH_TALON);
         winchTalon.configFactoryDefault();
         winchTalon.set(ControlMode.Current,0);
         winchTalon.setNeutralMode(NeutralMode.Brake);
 
-        traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
-        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
+//        traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
+//        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
+    }
+
+    @Override
+    protected void initDefaultCommand() {
     }
 
     public void traverseLeft() {
@@ -50,15 +50,15 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     }
 
     public void winchUp() {
-        winchTalon.set(ControlMode.Current,winchUpSpeed);
+        winchTalon.set(ControlMode.PercentOutput, winchUpSpeed);
     }
 
     public void winchDown() {
-        winchTalon.set(ControlMode.Current,winchDownSpeed);
+        winchTalon.set(ControlMode.PercentOutput, winchDownSpeed);
     }
 
     public void winchStop() {
-        winchTalon.set(ControlMode.Current,0);
+        winchTalon.set(ControlMode.PercentOutput, 0);
     }
 
     public boolean isClimberDeployed() {

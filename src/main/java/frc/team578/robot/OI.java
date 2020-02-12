@@ -39,8 +39,8 @@ public class OI implements Initializable {
 //        ob1.five.whenPressed(new SpinnerArmExtendCommand()); // Press to extend the spinner arm
 //        ob1.nine.whenPressed(new SpinnerArmRetractCommand()); // Press to retract the spinner arm
         // Winch commands
-//        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
-//        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
+        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
+        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
 
         // Leftover Commands that we still need buttons for
         // Spinner commands

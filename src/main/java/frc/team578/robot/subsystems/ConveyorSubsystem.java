@@ -63,7 +63,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
 //        setDefaultCommand(new ConveyorDebugSpinForwardCommand());
     }
 
-    public void periodic() {
+    public void periodic2() {
 
         switch(shootMode) {
             case WAITING:
