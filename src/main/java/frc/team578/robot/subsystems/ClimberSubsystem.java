@@ -15,7 +15,7 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     private DoubleSolenoid climberSolenoid;
 
     private final double winchUpSpeed = .5;
-    private final double winchDownSpeed = -.5;
+    private final double winchDownSpeed = .5;
 
     @Override
     public void initialize() {
@@ -54,7 +54,7 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     }
 
     public void winchDown() {
-        winchTalon.set(ControlMode.PercentOutput, winchDownSpeed);
+        winchTalon.set(ControlMode.PercentOutput, -winchDownSpeed);
     }
 
     public void winchStop() {

@@ -5,20 +5,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
+import frc.team578.robot.subsystems.interfaces.UpdateDashboard;
 import frc.team578.robot.utils.Timer2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
-Greg : I refactored some of this. The logic should be exactly the same, I just got rid of some of the redundant timer code by using
-a new class called Timer2 (based off the WPI class Time).
-
-Still have to hook in the shooter logic.
- */
-
-public class ConveyorSubsystem extends Subsystem implements Initializable {
+public class ConveyorSubsystem extends Subsystem implements Initializable, UpdateDashboard {
 
     private static final Logger log = LogManager.getLogger(ConveyorSubsystem.class);
 
@@ -207,5 +202,13 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
     public void stop() {
         conveyorTalon.set(ControlMode.PercentOutput, 0);
     }
+
+    @Override
+    public void updateDashboard() {
+        SmartDashboard.putBoolean("IntakeSensor",intakeSensor.get());
+        SmartDashboard.putBoolean("ShooterSensor",shooterSensor.get());
+    }
+
+
 
 }
