@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.utils.Timer2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
 Greg : I refactored some of this. The logic should be exactly the same, I just got rid of some of the redundant timer code by using
@@ -18,16 +20,16 @@ Still have to hook in the shooter logic.
 
 public class ConveyorSubsystem extends Subsystem implements Initializable {
 
+    private static final Logger log = LogManager.getLogger(ConveyorSubsystem.class);
+
     private ShootMode shootMode;
     private WPI_TalonSRX conveyorTalon;
     private DigitalInput intakeSensor, shooterSensor;
-
-
     private Timer2 timer = new Timer2();
-    private final long TIME_AFTER_SHOOTING_SEC = 1;
+
     private final double WAIT_TIME_SEC = 2;
     private final double conveyorPower = .5;
-    private final double smallSpeed =  -.15;
+    private final double smallSpeed = .15;
 
 
     @Override
@@ -60,10 +62,19 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
     protected void initDefaultCommand() {
     }
 
+
+    private ShootMode prevShootMode;
+
+    // This inherited method is being called by the scheduler
     @Override
     public void periodic() {
 
-        switch(shootMode) {
+        if (prevShootMode == null || shootMode != prevShootMode) {
+            log.info("Shoot Mode : " + shootMode);
+            prevShootMode = shootMode;
+        }
+
+        switch (shootMode) {
             // Get a ball up to the shooter sensor
             // Keep moving forward until a ball is sensed
             // Timeout will stop the movement and reset to intake
@@ -124,14 +135,14 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
                 }
                 break;
 
-                // This is the default state
+            // This is the default state
             // Wait for a ball to come in
             // or some other external action to happen.
             case WAITING_FOR_INTAKE_RELOAD:
                 // Check for All full
                 // Can't push balls forward anymore
                 if (isBallInShooterSensor()) {
-                    // if Ball in shooter sensor
+                    // we might be filled
                     stop();
                 } else if (isBallInIntakeSensor())
                     // ball is not in shooter and if ball in intake sensor
@@ -144,10 +155,9 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
                 if (isBallInShooterSensor()) // if Ball in shooter sensor
                     shootMode = ShootMode.WAITING_FOR_INTAKE_RELOAD;
 
-                // When ball is moved in, then back
+                // When ball is moved in, then move everything back
                 if (!isBallInIntakeSensor()) // if ball no longer in intake sensor
                     shootMode = ShootMode.MOVE_BALLS_TOWARDS_INTAKE_SENSOR;
-
                 break;
         }
     }
@@ -160,40 +170,42 @@ public class ConveyorSubsystem extends Subsystem implements Initializable {
         return intakeSensor.get();
     }
 
-    public void moveOneBallIntoShooter(){
+    public void moveOneBallIntoShooter() {
         shootMode = ShootMode.SHOOT_SENSOR_WAITING_FOR_BALL;
     }
-    public void interruptShooting(){
+
+    // TODO : ?
+    public void interruptShooting() {
         shootMode = ShootMode.MOVE_BALLS_TOWARDS_INTAKE_SENSOR;
     }
-    public boolean isShooting(){
+
+    // TODO : ?
+    public boolean isOrganizing() {
         return shootMode.isOrganizing();
     }
 
     public void advanceBallsSmallAmount() {
-        conveyorTalon.set(ControlMode.PercentOutput, smallSpeed);
+        moveTowardsShooterSensor(smallSpeed);
     }
 
-    public void moveTowardsShooterSensor(){
-        conveyorTalon.set(ControlMode.PercentOutput, conveyorPower);
+    public void moveTowardsShooterSensor() {
+        moveTowardsShooterSensor(conveyorPower);
     }
-    public void moveTowardsIntakeSensor(){
-        conveyorTalon.set(ControlMode.PercentOutput, -conveyorPower);
+
+    public void moveTowardsIntakeSensor() {
+        moveTowardsIntakeSensor(conveyorPower);
     }
-    public void stop(){
-        // TODO : Should this be setting any state enums?
+
+    public void moveTowardsShooterSensor(double power) {
+        conveyorTalon.set(ControlMode.PercentOutput, power);
+    }
+
+    public void moveTowardsIntakeSensor(double power) {
+        conveyorTalon.set(ControlMode.PercentOutput, -power);
+    }
+
+    public void stop() {
         conveyorTalon.set(ControlMode.PercentOutput, 0);
     }
 
-    public void pollFeedInput() {
-        periodic();
-    }
-
-    public void shootOnce() {
-//        // shoot button pushed and belt not organizing balls
-//        if (!shootMode.isOrganizing()) {
-//            Robot.shooterSubsystem.spinToMaxRPM();
-//            shootMode = ShootMode.WAITING; // transition to waitingToShoot mode
-//        }
-    }
 }
