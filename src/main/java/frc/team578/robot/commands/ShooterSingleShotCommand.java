@@ -11,7 +11,7 @@ public class ShooterSingleShotCommand extends CommandGroup {
 
     public ShooterSingleShotCommand() {
         addSequential(new ShooterToDefaultRPMCommand());
-        addSequential(new ShooterWaitForSpinUp(3));
+        addSequential(new ShooterWaitForSpinUp(2));
         addSequential(new ConveyorAdvanceSingleBall());
         // TODO : Spin Down Shooter?
     }

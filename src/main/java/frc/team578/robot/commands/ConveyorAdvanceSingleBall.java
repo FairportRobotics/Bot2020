@@ -21,7 +21,7 @@ public class ConveyorAdvanceSingleBall extends Command {
     @Override
     protected void execute() {
         log.info("Exec ConveyorAdvanceSingleBall");
-        // TODO
+        Robot.conveyorSubsystem.moveOneBallIntoShooter();
     }
 
 

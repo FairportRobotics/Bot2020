@@ -21,7 +21,7 @@ public class ConveyorDebugSpinForwardCommand extends Command {
 
     @Override
     protected void execute() {
-        Robot.conveyorSubsystem.moveForward();
+        Robot.conveyorSubsystem.moveTowardsShooterSensor();
     }
 
 

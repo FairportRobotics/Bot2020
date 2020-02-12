@@ -22,7 +22,7 @@ public class ConveyorDebugSpinBackwardsCommand extends Command {
     @Override
     protected void execute() {
         log.info("Exec ConveyorDebugSpinBackwardsCommand");
-        Robot.conveyorSubsystem.moveBackward();
+        Robot.conveyorSubsystem.moveTowardsIntakeSensor();
     }
 
 
