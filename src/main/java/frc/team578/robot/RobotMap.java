@@ -3,16 +3,16 @@ package frc.team578.robot;
 public class RobotMap {
 
     // Drive controller IDs
-    public static final int FRONT_LEFT_DRIVE_TALON_ID = 1;
-    public static final int FRONT_RIGHT_DRIVE_TALON_ID = 2;
-    public static final int BACK_LEFT_DRIVE_TALON_ID = 3;
-    public static final int BACK_RIGHT_DRIVE_TALON_ID = 4;
+    public static final int FRONT_LEFT_DRIVE_TALON_ID = 14;
+    public static final int FRONT_RIGHT_DRIVE_TALON_ID = 10;
+    public static final int BACK_LEFT_DRIVE_TALON_ID = 50;
+    public static final int BACK_RIGHT_DRIVE_TALON_ID = 06;
 
     // Steer controller IDs
-    public static final int FRONT_LEFT_ROTATE_TALON_ID = 15;
-    public static final int FRONT_RIGHT_ROTATE_TALON_ID = 12;
-    public static final int BACK_LEFT_ROTATE_TALON_ID = 6;
-    public static final int BACK_RIGHT_ROTATE_TALON_ID = 14;
+    public static final int FRONT_LEFT_ROTATE_TALON_ID = 51;
+    public static final int FRONT_RIGHT_ROTATE_TALON_ID = 55;
+    public static final int BACK_LEFT_ROTATE_TALON_ID = 20;
+    public static final int BACK_RIGHT_ROTATE_TALON_ID = 13;
 
     // OI Control IDs
     public static final int OPERATORBOX_ID = 0;
@@ -34,7 +34,7 @@ public class RobotMap {
     public static final int PCM1 = 99;
     public static final int PCM1_INTAKE_UP = 99;
     public static final int PCM1_INTAKE_DOWN = 99;
-    public static final int TRAVERSE_TALON = 99;
+    public static final int TRAVERSE_TALON = 04;
     public static final int WINCH_TALON = 5;
     public static final int PCM1_CLIMBER_UP = 99;
     public static final int PCM1_CLIMBER_DOWN = 99;
