@@ -105,9 +105,6 @@ public class Robot extends TimedRobot {
 
         Robot.swerveDriveSubsystem.stop();
 
-	// TODO : Why is this set? Is it leftover from 2019?
-        Robot.swerveDriveSubsystem.setModeRobot();
-
     }
 
     @Override
