@@ -32,7 +32,7 @@ public class ConveyorAdvanceSingleBall extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false; // TODO fix
+        return true;
     }
 
     @Override

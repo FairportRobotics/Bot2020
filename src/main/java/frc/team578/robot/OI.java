@@ -33,8 +33,8 @@ public class OI implements Initializable {
 //        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
 //        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
         // Shooter commands
-//        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
-//        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
+        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
+        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
         // Spinner commands
 //        ob1.five.whenPressed(new SpinnerArmExtendCommand()); // Press to extend the spinner arm
 //        ob1.nine.whenPressed(new SpinnerArmRetractCommand()); // Press to retract the spinner arm

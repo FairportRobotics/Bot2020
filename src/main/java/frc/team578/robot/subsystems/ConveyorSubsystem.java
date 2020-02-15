@@ -22,7 +22,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
     private DigitalInput intakeSensor, shooterSensor;
     private Timer2 timer = new Timer2();
 
-    private final double WAIT_TIME_SEC = 2;
+    private final double WAIT_TIME_SEC = 4;
     private final double conveyorPower = .5;
     private final double smallSpeed = .15;
 
@@ -45,7 +45,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
         WAITING_FOR_INTAKE_RELOAD,
         BRING_IN_NEW_BALL;
 
-        public boolean isOrganizing() {
+        public boolean isShooting() {
             return this == SHOOT_SENSOR_WAITING_FOR_BALL
                     || this == ADVANCE_THRU_SHOOT_SENSOR
                     || this == MOVE_BALLS_TOWARDS_INTAKE_SENSOR
@@ -82,6 +82,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
 
                 if (timer.hasPeriodPassed(WAIT_TIME_SEC)) { // if timeout
                     timer.stop();
+                    stop();
                     shootMode = ShootMode.WAITING_FOR_INTAKE_RELOAD;
                 }
 
@@ -115,9 +116,11 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
                     shootMode = ShootMode.WAITING_FOR_INTAKE_RELOAD;
                 }
 
-                if (isBallInIntakeSensor()) // if ball gets to front of intake
+                if (isBallInIntakeSensor()) { // if ball gets to front of intake
                     timer.stop();
-                shootMode = ShootMode.ADVANCE_BALLS_SMALL_AMOUNT;
+                    shootMode = ShootMode.ADVANCE_BALLS_SMALL_AMOUNT;
+                }
+
                 break;
 
             case ADVANCE_BALLS_SMALL_AMOUNT:
@@ -175,8 +178,8 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
     }
 
     // TODO : ?
-    public boolean isOrganizing() {
-        return shootMode.isOrganizing();
+    public boolean isShooting() {
+        return shootMode.isShooting();
     }
 
     public void advanceBallsSmallAmount() {
