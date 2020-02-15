@@ -3,8 +3,8 @@ package frc.team578.robot.subsystems.swerve;
 public class SwerveConstants {
 
 
-    public static final double ROBOT_LENGTH = .625;
-    public static final double ROBOT_WIDTH = .47;
+    public static final double ROBOT_LENGTH = 0.6096;
+    public static final double ROBOT_WIDTH = 0.5588;
 
     public static final int FRONT_LEFT_TRUE_NORTH_ENC_POS = 613;
     public static final int FRONT_RIGHT_TRUE_NORTH_ENC_POS = 556;

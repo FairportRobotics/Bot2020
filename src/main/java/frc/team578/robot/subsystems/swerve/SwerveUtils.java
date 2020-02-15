@@ -60,6 +60,7 @@ public class SwerveUtils {
         talon.configFactoryDefault();
         talon.setInverted(revMotor);
 //        talon.configSelectedFeedbackSensor(FeedbackDevice.None, 0, 0);
+        talon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
         talon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
         talon.set(ControlMode.PercentOutput, 0);
         return talon;
@@ -80,6 +81,9 @@ public class SwerveUtils {
         talon.config_kD(SwerveConstants.PROFILE_SLOT, dCoeff, SwerveConstants.TIMEOUT_MS);
         talon.config_kF(SwerveConstants.PROFILE_SLOT, fCoeff, SwerveConstants.TIMEOUT_MS);
         talon.config_IntegralZone(SwerveConstants.PROFILE_SLOT, iZone, SwerveConstants.TIMEOUT_MS);
+
+        talon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
+        talon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
 
         talon.configNominalOutputForward(0, SwerveConstants.TIMEOUT_MS);
         talon.configNominalOutputReverse(0, SwerveConstants.TIMEOUT_MS);
