@@ -59,10 +59,18 @@ public class SwerveUtils {
         WPI_TalonSRX talon = new WPI_TalonSRX(talonID);
         talon.configFactoryDefault();
         talon.setInverted(revMotor);
-//        talon.configSelectedFeedbackSensor(FeedbackDevice.None, 0, 0);
+
         talon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
         talon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, SwerveConstants.TIMEOUT_MS);
+
+        talon.configNominalOutputForward(0, SwerveConstants.TIMEOUT_MS);
+        talon.configNominalOutputReverse(0, SwerveConstants.TIMEOUT_MS);
+
+        talon.configPeakOutputForward(1, SwerveConstants.TIMEOUT_MS);
+        talon.configPeakOutputReverse(-1, SwerveConstants.TIMEOUT_MS);
+
         talon.set(ControlMode.PercentOutput, 0);
+
         return talon;
     }
 
