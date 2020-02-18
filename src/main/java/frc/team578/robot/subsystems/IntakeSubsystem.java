@@ -31,17 +31,17 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
         intakeArmSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_INTAKE_UP, RobotMap.PCM1_INTAKE_DOWN);
     }
 
+    //Piston  -  These kForward and kReverse Values may need to be switched
+    // We also need to figure out if structures/electronics is using one solenoid or two to control the two pistions
+    // If there are two solenoids, then we need to add a second DoubleSolenoid variable and second .set() methods
+    // in both intakeArmUp() and intakeArmDown()
+    public void intakeArmUp() { intakeArmSolenoid.set(DoubleSolenoid.Value.kForward); }
+    public void intakeArmDown() { intakeArmSolenoid.set(DoubleSolenoid.Value.kReverse);}
 
-    public void intakeArmUp() {
-    }
-
-    public void intakeArmDown() {
-    }
-
+    //Intake Motor
     public void intakeSpinIn() {
         intakeTalon.set(ControlMode.PercentOutput, spinIntakeInPower);
     }
-
     public void intakeSpinOut() {
         intakeTalon.set(ControlMode.PercentOutput, -spinIntakeOutPower);
     }
