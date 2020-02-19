@@ -145,7 +145,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
 
                 if (isBallInShooterSensor()) // if Ball in shooter sensor
                     shootMode = ShootMode.WAITING_FOR_INTAKE_RELOAD;
-                
+
                 if (timer.hasPeriodPassed(TIME_TO_MAKE_SPACE)) { // if timeout
                     stop();
                     timer.stop();

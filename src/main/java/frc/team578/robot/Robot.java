@@ -87,6 +87,9 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         super.disabledInit();
+        Robot.shooterSubsystem.stop();
+        Robot.swerveDriveSubsystem.stop();
+        Robot.conveyorSubsystem.stop();
     }
 
     @Override

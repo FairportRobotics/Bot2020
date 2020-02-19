@@ -16,7 +16,7 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
 
     private WPI_TalonSRX shooterTalon;
     private double defaultRPM = 500;
-    private double maxRPM = 2000;
+    private double maxRPM = 6300;
     private int kTimeoutMs = 0;
     private PIDFinished<Double> pidFinishRPMDerivative;
     private PIDFinished<Integer> pidFinishRPMTarget;
