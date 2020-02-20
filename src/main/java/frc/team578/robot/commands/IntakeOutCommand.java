@@ -29,6 +29,7 @@ public class IntakeOutCommand extends Command {
 
     @Override
     protected void interrupted() {
+        Robot.intakeSubsystem.stop();
         log.info("Interrupted IntakeOutCommand");
     }
 

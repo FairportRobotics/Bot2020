@@ -22,13 +22,13 @@ public class IntakeInCommand extends Command {
     @Override
     protected void execute() {
         log.info("Exec IntakeInCommand");
-        // TODO: This method SHOULD be a toggle method, so add code to stop spinning
         Robot.intakeSubsystem.intakeSpinIn();
     }
 
 
     @Override
     protected void interrupted() {
+        Robot.intakeSubsystem.stop();
         log.info("Interrupted IntakeInCommand");
     }
 

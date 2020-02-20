@@ -41,9 +41,9 @@ public class Robot extends TimedRobot {
             swerveDriveSubsystem.initialize();
             log.info("Swerve Drive Subsystem Initialized");
 
-//            intakeSubsystem = new IntakeSubsystem();
-//            intakeSubsystem.initialize();
-//            log.info("Intake Subsystem Initialized");
+            intakeSubsystem = new IntakeSubsystem();
+            intakeSubsystem.initialize();
+            log.info("Intake Subsystem Initialized");
 
             conveyorSubsystem = new ConveyorSubsystem();
             conveyorSubsystem.initialize();
@@ -140,8 +140,8 @@ public class Robot extends TimedRobot {
 
 
     public void updateAllDashboards() {
-//        Robot.swerveDriveSubsystem.updateDashboard();
-//        Robot.gyroSubsystem.updateDashboard();
+        Robot.swerveDriveSubsystem.updateDashboard();
+        Robot.gyroSubsystem.updateDashboard();
         Robot.conveyorSubsystem.updateDashboard();
     }
 }

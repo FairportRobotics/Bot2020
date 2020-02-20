@@ -23,7 +23,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
     private Timer2 timer = new Timer2();
 
     private final double WAIT_TIME_SEC = 4;
-    private final double TIME_TO_MAKE_SPACE = .2;
+    private final double TIME_TO_MAKE_SPACE = .25;
     private final double conveyorPower = .5;
     private final double smallSpeed = .15;
 

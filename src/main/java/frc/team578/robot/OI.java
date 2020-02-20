@@ -30,8 +30,8 @@ public class OI implements Initializable {
 //        ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
 //        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
         // Intake commands
-//        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
-//        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
+        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
+        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
         // Shooter commands
         ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
         ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
@@ -53,7 +53,7 @@ public class OI implements Initializable {
         gp1.buttonA.whileHeld(new ConveyorDebugSpinForwardCommand()); // Hold to spin in conveyor belt
         gp1.buttonB.whileHeld(new ConveyorDebugSpinBackwardsCommand()); // Hold to spin out conveyor belt
 
-        gp1.buttonX.whileHeld(new ShooterDebugMaxRPMCommand()); // Hold to spin in conveyor belt
+        gp1.buttonX.whileHeld(new ShooterToDefaultRPMCommand()); // Hold to spin in conveyor belt
         gp1.buttonY.whileHeld(new ShooterDebugStopCommand()); // Hold to spin out conveyor belt
 
 //        gp1.lb.whenPressed(new IntakeArmDownCommand());

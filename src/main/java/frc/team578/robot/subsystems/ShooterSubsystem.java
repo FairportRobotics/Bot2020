@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.utils.PIDFinished;
@@ -21,7 +23,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     private PIDFinished<Double> pidFinishRPMDerivative;
     private PIDFinished<Integer> pidFinishRPMTarget;
 
-
     @Override
     protected void initDefaultCommand() {
     }
@@ -37,6 +38,8 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
         shooterTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, kTimeoutMs);
         shooterTalon.setSensorPhase(true);
         shooterTalon.setInverted(false);
+
+        SmartDashboard.putNumber("Target", defaultRPM);
 
 
         double kF =  0.04;
@@ -85,7 +88,11 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     }
 
     public void spinToDefaultRPM() {
-        shooterTalon.set(ControlMode.Velocity, RPMsToVel(defaultRPM));
+        double spinTo = SmartDashboard.getNumber("Target", defaultRPM);
+        shooterTalon.set(ControlMode.Velocity, RPMsToVel(spinTo));
+        SmartDashboard.putNumber("CLE", velToRPM(shooterTalon.getClosedLoopError()));
+        SmartDashboard.putNumber("Current RPM" ,velToRPM(shooterTalon.getClosedLoopTarget()));
+        SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
     }
 
     public void spinToMaxRPM() {
