@@ -12,7 +12,7 @@ public class AutoMoveTimed extends TimedCommand {
     private final double rotation;
     private final double timeoutSeconds;
 
-    AutoMoveTimed(String name, double fwd, double strafe, double rotation, double timeoutSeconds) {
+    public AutoMoveTimed(String name, double fwd, double strafe, double rotation, double timeoutSeconds) {
         super(name, timeoutSeconds);
         this.name = name;
         this.fwd = fwd;

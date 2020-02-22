@@ -1,11 +1,19 @@
 package frc.team578.robot;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.team578.robot.commands.auto.commandgroups.MoveBackwardOffLine;
+import frc.team578.robot.commands.auto.commandgroups.MoveForwardOffLine;
+import frc.team578.robot.commands.auto.enums.AutoActionEnum;
+import frc.team578.robot.commands.auto.enums.AutoStartingPositionEnum;
 import frc.team578.robot.subsystems.*;
+import frc.team578.robot.utils.ChooserUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,10 +34,18 @@ public class Robot extends TimedRobot {
     public static UsbCamera camera;
     public static ConveyorSubsystem conveyorSubsystem;
 
+    private SendableChooser<AutoStartingPositionEnum> startingPositionChooser;
+    private SendableChooser<AutoActionEnum> autoActionChooser;
+    Command autonomousCommand;
+
+
+
+
     @Override
     public void robotInit() {
 
         try {
+            Shuffleboard.addEventMarker("Command initialized", "Robot Init", EventImportance.kNormal);
 
             log.info("Starting Robot Init");
 
@@ -70,6 +86,9 @@ public class Robot extends TimedRobot {
             oi.initialize();
             log.info("OI Subsystem Initialized");
 
+            autoActionChooser = ChooserUtil.initializeAutoActionChooser();
+            log.info("Initialized Auto Action Chooser");
+
         } catch (Throwable t) {
             log.error("Error In Robot Initialization : " + t.getMessage(), t);
             throw t;
@@ -84,30 +103,29 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
     }
 
-    @Override
-    public void disabledInit() {
-        super.disabledInit();
-        Robot.shooterSubsystem.stop();
-        Robot.swerveDriveSubsystem.stop();
-        Robot.conveyorSubsystem.stop();
-    }
-
-    @Override
-    public void disabledPeriodic() {
-        updateAllDashboards();
-        Scheduler.getInstance().run();
-    }
-
 
     @Override
     public void autonomousInit() {
+
+        Robot.swerveDriveSubsystem.stop();
 
         /*
           TODO : Do we want to lower the arm at the beginning (or is this manual)
          */
 
-        Robot.swerveDriveSubsystem.stop();
+        DriverStation.Alliance color = DriverStation.getInstance().getAlliance();
+        log.info("Alliance Color [" + color.name() + "]");
 
+        AutoActionEnum autoActionEnum = autoActionChooser.getSelected();
+
+        //TODO: Change Later: Default Auto Command
+        autonomousCommand = new MoveBackwardOffLine();
+        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD) { autonomousCommand = new MoveForwardOffLine(); }
+
+        log.info("Autonomous Command : " + autonomousCommand.getName());
+
+        if (autonomousCommand != null)
+            autonomousCommand.start();
     }
 
     @Override
@@ -119,6 +137,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        if (autonomousCommand != null) {
+            autonomousCommand.cancel();
+        }
         Robot.swerveDriveSubsystem.stop();
         Robot.swerveDriveSubsystem.setModeField();
     }
@@ -138,10 +159,51 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
     }
 
+    @Override
+    public void disabledInit() {
+        super.disabledInit();
+        Robot.shooterSubsystem.stop();
+        Robot.swerveDriveSubsystem.stop();
+        Robot.conveyorSubsystem.stop();
+    }
+
+    @Override
+    public void disabledPeriodic() {
+        updateAllDashboards();
+        Scheduler.getInstance().run();
+    }
+
 
     public void updateAllDashboards() {
-        Robot.swerveDriveSubsystem.updateDashboard();
-        Robot.gyroSubsystem.updateDashboard();
-        Robot.conveyorSubsystem.updateDashboard();
+//        Robot.swerveDriveSubsystem.updateDashboard();
+//        Robot.gyroSubsystem.updateDashboard();
+//        Robot.conveyorSubsystem.updateDashboard();
+    }
+
+    public void handleGameData() {
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0)
+        {
+            switch (gameData.charAt(0))
+            {
+                case 'B' :
+                    //Blue case code
+                    break;
+                case 'G' :
+                    //Green case code
+                    break;
+                case 'R' :
+                    //Red case code
+                    break;
+                case 'Y' :
+                    //Yellow case code
+                    break;
+                default :
+                    //This is corrupt data
+                    break;
+            }
+        } else {
+            //Code for no data received yet
+        }
     }
 }

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class ShooterSingleShotCommand extends CommandGroup {
 
     public ShooterSingleShotCommand() {
-//        addSequential(new ShooterToDefaultRPMCommand());
+        addSequential(new ShooterToDefaultRPMCommand());
 //        addSequential(new ShooterWaitForSpinUp(2));
         addSequential(new ConveyorAdvanceSingleBall());
         // TODO : Spin Down Shooter?
