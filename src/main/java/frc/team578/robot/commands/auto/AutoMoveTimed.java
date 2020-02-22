@@ -21,10 +21,10 @@ public class AutoMoveTimed extends TimedCommand {
         this.timeoutSeconds = timeoutSeconds;
     }
 
-    @Override
-    protected void initialize() {
-        requires(Robot.swerveDriveSubsystem);
-    }
+//    @Override
+//    protected void initialize() {
+//        requires(Robot.swerveDriveSubsystem);
+//    }
 
     @Override
     protected void execute() {
@@ -39,11 +39,6 @@ public class AutoMoveTimed extends TimedCommand {
     @Override
     protected void end() {
         Robot.swerveDriveSubsystem.stop();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
     }
 
 }

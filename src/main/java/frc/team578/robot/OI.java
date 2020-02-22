@@ -56,8 +56,8 @@ public class OI implements Initializable {
         gp1.buttonX.whenPressed(new ShooterToDefaultRPMCommand()); // Hold to spin in conveyor belt
         gp1.buttonY.whileHeld(new ShooterDebugStopCommand()); // Hold to spin out conveyor belt
 
-//        gp1.lb.whenPressed(new IntakeArmDownCommand());
-//        gp1.rb.whenPressed(new IntakeArmUpCommand());
+        gp1.lb.whenPressed(new IntakeArmDownCommand());
+        gp1.rb.whenPressed(new IntakeArmUpCommand());
 
 
     }

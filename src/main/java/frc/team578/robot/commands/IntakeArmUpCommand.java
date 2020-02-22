@@ -19,7 +19,7 @@ public class IntakeArmUpCommand extends Command {
 
     @Override
     protected void execute() {
-//        Robot.intakeSubsystem.intakeArmUp();
+        Robot.intakeSubsystem.intakeArmUp();
         log.info("Exec IntakeArmUpCommand");
     }
 

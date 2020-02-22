@@ -12,7 +12,7 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
 
 
     private WPI_TalonSRX intakeTalon;
-//    private DoubleSolenoid intakeArmSolenoid;
+    private DoubleSolenoid intakeArmSolenoid;
     private double spinIntakeInPower = 0.5;
     private double spinIntakeOutPower = 0.5;
 
@@ -28,12 +28,12 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
         intakeTalon = new WPI_TalonSRX(RobotMap.INTAKE_TALON);
         intakeTalon.configFactoryDefault();
         intakeTalon.setNeutralMode(NeutralMode.Brake);
-//        intakeArmSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_INTAKE_UP, RobotMap.PCM1_INTAKE_DOWN);
+        intakeArmSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_INTAKE_UP, RobotMap.PCM1_INTAKE_DOWN);
     }
 
     //Piston  -  These kForward and kReverse Values may need to be switched
-//    public void intakeArmUp() { intakeArmSolenoid.set(DoubleSolenoid.Value.kForward); }
-//    public void intakeArmDown() { intakeArmSolenoid.set(DoubleSolenoid.Value.kReverse);}
+    public void intakeArmUp() { intakeArmSolenoid.set(DoubleSolenoid.Value.kForward); }
+    public void intakeArmDown() { intakeArmSolenoid.set(DoubleSolenoid.Value.kReverse);}
 
     //Intake Motor
     public void intakeSpinIn() {

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.team578.robot.commands.auto.commandgroups.MoveBackwardOffLine;
 import frc.team578.robot.commands.auto.commandgroups.MoveForwardOffLine;
+import frc.team578.robot.commands.auto.commandgroups.MoveTurnShootTest;
 import frc.team578.robot.commands.auto.enums.AutoActionEnum;
 import frc.team578.robot.commands.auto.enums.AutoStartingPositionEnum;
 import frc.team578.robot.subsystems.*;
@@ -119,8 +120,9 @@ public class Robot extends TimedRobot {
         AutoActionEnum autoActionEnum = autoActionChooser.getSelected();
 
         //TODO: Change Later: Default Auto Command
-        autonomousCommand = new MoveBackwardOffLine();
-        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD) { autonomousCommand = new MoveForwardOffLine(); }
+        autonomousCommand = new MoveTurnShootTest();
+//        autonomousCommand = new MoveBackwardOffLine();
+//        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD) { autonomousCommand = new MoveForwardOffLine(); }
 
         log.info("Autonomous Command : " + autonomousCommand.getName());
 

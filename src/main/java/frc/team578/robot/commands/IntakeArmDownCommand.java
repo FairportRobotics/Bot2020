@@ -19,7 +19,7 @@ public class IntakeArmDownCommand extends Command {
 
     @Override
     protected void execute() {
-//        Robot.intakeSubsystem.intakeArmDown();
+        Robot.intakeSubsystem.intakeArmDown();
         log.info("Exec IntakeArmDownCommand");
     }
 

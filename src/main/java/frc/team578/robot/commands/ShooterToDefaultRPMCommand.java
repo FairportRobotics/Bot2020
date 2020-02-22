@@ -33,7 +33,7 @@ public class ShooterToDefaultRPMCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
