@@ -1,69 +1,107 @@
 import sys
+import math
 import cv2
 import numpy as np
-from networktables import NetworkTables as nt
+from networktables import NetworkTablesInstance as nti
+from cscore import CameraServer, VideoSource, CvSource, VideoMode, CvSink, UsbCamera
 import logging as log
+
+# This code is designed to work for the Microsoft Lifecam HD3000 and the limelight ring
 
 log.basicConfig(level = log.DEBUG)
 
-cap = cv2.VideoCapture(0) # ID/port of the camera
+# NetworkTables set up
+ntinst = nti.getDefault()
+ntinst.startClientTeam(578)
+
+sd = ntinst.getTable('SmartDashboard')
+
+# Start the camera
+cs = CameraServer.getInstance()
+cs.enableLogging()
+Camera = UsbCamera('rPi Camera 0', 0)
+Camera.setResolution(1280, 720)
+cs.addCamera(Camera)
+
+CvSink = cs.getVideo()
+outputStream = cs.putVideo("Processed Frames", 1280, 720)
+
+img = np.zeros(shape=(1280, 720, 3), dtype=np.uint8)
+
+#cap = cv2.VideoCapture(2)
 
 while(True):
-    ret, frame = cap.read()
-    blur = cv2.blur(frame, (11, 11))
-    b, g, r = cv2.split(frame)
-    thresh = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY)[1]
-    mask = cv2.bitwise_and(blur, blur, thresh)
-    norm = cv2.normalize(mask, None, 0, 255, cv2.NORM_MINMAX)
-    temp = cv2.cvtColor(norm, cv2.COLOR_BGR2HSV)
-    hsv = cv2.inRange(temp, (0, 0, 232),  (180, 255, 255))
-    erode = cv2.erode(hsv, None, cv2.BORDER_CONSTANT)
-    dilate = cv2.dilate(erode, None, cv2.BORDER_CONSTANT)
-    contours, hierarchy = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-#    contour = contours[1] # Specified contour
-    contour = max(contours, key = cv2.contourArea) # Contour with max area
-#    out = cv2.drawContours(img, contours, 3, (255,0,0), 1) # Draw 4th contour
-#    out = cv2.drawContours(img, contours, -1, (255,0,0), 1) # Draw all contours
+    GotFrame, img = CvSink.grabFrame(img)
+    if (GotFrame == 0):
+        outputStream.notifyError(CvSink.getError())
+        continue
 
-    epsilon = 0.1 * cv2.arcLength(contour, True) # Adjust the constant to change accuracy (lower = higher accuracy)
-    approx = cv2.approxPolyDP(contour, epsilon, True)
-    out = cv2.drawContours(frame, [approx], 0, (255,0,0), 1)
+#    ret, img = cap.read()
 
-    # Centroid
-    moments = cv2.moments(approx)
-    cx = int(moments['m10'] / moments['m00'])
-    cy = int(moments['m01'] / moments['m00'])
+    # Filter the limelight
+    blur = cv2.blur(img, (5, 5))
+    b, g, r = cv2.split(img)
+    thresh = cv2.threshold(g, 250, 255, cv2.THRESH_TOZERO)[1]
+#    mask = cv2.bitwise_and(blur, blur, thresh)
+    norm = cv2.normalize(thresh, None, 0, 255, cv2.NORM_MINMAX)
+#    temp = cv2.cvtColor(norm, cv2.COLOR_BGR2HSV)
+#    hsv = cv2.inRange(temp, (0, 0, 222),  (180, 255, 255))
+    erode = cv2.erode(norm, None, cv2.BORDER_CONSTANT, iterations=1)
+    dilate = cv2.dilate(erode, None, cv2.BORDER_CONSTANT, iterations=1)
+    _, contours, hierarchy = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#    contours, hierarchy = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # Best fit line
-    rows, cols = out.shape[:2]
-    [vx, vy, x, y] = cv2.fitLine(contour, cv2.DIST_L2, 0, 0.01, 0.01)
-    lefty = int((-x * vy / vx) + y) # Left y average (on perimeter)
-    righty = int(((cols - x) * vy / vx) + y) # Right y average (on perimeter)
-    outWithLine = cv2.line(out, (cols - 1 , righty), (0, lefty), (255, 0, 0), 1)
+    if len(contours) > 0:
 
-    # Area & Perimeter
-    area = cv2.contourArea(approx)
-    per = cv2.arcLength(approx, True)
-    # points = np.transpose(np.nonzero(out))
+        contours = sorted(contours, key = cv2.contourArea, reverse = True)
+        rawHull = cv2.convexHull(contours[0])
+        area = cv2.contourArea(rawHull)
+#        area = cv2.contourArea(rawHull)
 
-    # NetworkTables time! Yay! ...
-    if len(sys.argv) != 2:
-        print("Error: specify an IP to connect to!")
-        exit(0)
+#        for c in contours:
+#            tempHull = cv2.convexHull(c)
+#            if area <= cv2.contourArea(tempHull):
+#                area = cv2.contourArea(tempHull)
+#                rawHull = tempHull
 
-        ip = sys.argv[1]
-        nt.initialize(server = ip)
-        sd = nt.getTable("SmartDashboard")
+        print('--------------------------------------')
 
+#        epsilon = 0.05 * cv2.arcLength(rawHull, True) # Adjust the constant to change accuracy (lower = higher accuracy)
+#        approx = cv2.approxPolyDP(rawHull, epsilon, True) # Approximate the contour to a shape
+        out = cv2.drawContours(img, [rawHull], 0, (255,0,0), 3)
+
+        topmost = tuple(rawHull[rawHull[:,:,1].argmin()][0])[1] # Lowest y value on contour
+        bottommost = tuple(rawHull[rawHull[:,:,1].argmax()][0])[1] # Greatest y value on contour
+        height = bottommost - topmost
+        print('Height: ', height)
+        a = 0.0038754345
+        b = -1.151587756
+        c = 126.1578637
+        d = -6037.283106
+        e = 110701.8825
+        rpm = (a*(height**4))+(b*(height**3)) + (c*(height**2)) + (d*height) + e
+        print('RPM: ', rpm)
+
+        # Centroid
+        moments = cv2.moments(rawHull)
+        if moments['m00'] == 0: continue
+        cx = int(moments['m10'] / moments['m00'])
+        print('Center X: ', cx)
+
+        print('Area: ', area)
+
+        # NetworkTables time! Yay! ...
         sd.putNumber("center-x", cx)
-        sd.putNumber("center-y", cy)
-        sd.putNumber("lefty", lefty)
-        sd.putNumber("righty", righty)
+        sd.putNumber("rpm", rpm)
+        sd.putNumber("height", height)
         sd.putNumber("area", area)
-        sd.putNumber("per", per)
 
-    cv2.imshow('Processed Camera Feed', outWithLine)
+        print()
+        outputStream.putFrame(out)
+
+#        cv2.imshow('Camera Feed', out)
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
