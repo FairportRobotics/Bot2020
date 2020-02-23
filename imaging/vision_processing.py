@@ -75,12 +75,13 @@ while(True):
         bottommost = tuple(rawHull[rawHull[:,:,1].argmax()][0])[1] # Greatest y value on contour
         height = bottommost - topmost
         print('Height: ', height)
-        a = 0.0038754345
-        b = -1.151587756
-        c = 126.1578637
-        d = -6037.283106
-        e = 110701.8825
-        rpm = (a*(height**4))+(b*(height**3)) + (c*(height**2)) + (d*height) + e
+        a = .00003
+        b = -0.0175
+        c = 4.691
+        d = -624.04
+        e = 41215
+        f = -1000000
+        rpm = (a*(height**5))+(b*(height**4)) + (c*(height**3)) + (d*(height**2)) + (e*height) + f
         print('RPM: ', rpm)
 
         # Centroid
