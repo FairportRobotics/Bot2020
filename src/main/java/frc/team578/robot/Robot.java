@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
         // TODO: Find an rpm
         switch (autoActionEnum) {
             case PENFIELD_LEFT:
-                autonomousCommand = new PenfieldLeftShot(6400);
+                autonomousCommand = new PenfieldLeftShot(6000);
                 break;
             case PENFIELD_CENTER:
                 autonomousCommand = new PenfieldCenterShot(4350);
