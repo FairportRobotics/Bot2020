@@ -15,7 +15,7 @@ public class PenfieldCenterShot extends CommandGroup {
 
     public PenfieldCenterShot() {
         addSequential(new MoveBackwardOffLine());
-        addSequential(new AutoTurnToHeading(35));
+        addSequential(new AutoTurnToHeading(17.9));
         addSequential(new ShooterSingleShotCommand());
 
     }
