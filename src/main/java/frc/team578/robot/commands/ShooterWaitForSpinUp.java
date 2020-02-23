@@ -15,7 +15,7 @@ public class ShooterWaitForSpinUp extends TimedCommand {
 
     @Override
     protected void initialize() {
-        log.info("Starting ShooterWaitForSpinUp ");
+        log.debug("Starting ShooterWaitForSpinUp ");
     }
 
     @Override
@@ -33,6 +33,6 @@ public class ShooterWaitForSpinUp extends TimedCommand {
 
     @Override
     protected void end() {
-        log.info("Ending ShooterWaitForSpinUp " + timeSinceInitialized());
+        log.debug("Ending ShooterWaitForSpinUp " + timeSinceInitialized());
     }
 }

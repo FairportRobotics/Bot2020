@@ -16,19 +16,19 @@ public class SpinnerArmExtendCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing SpinnerArmExtendCommand");
+        log.debug("Initializing SpinnerArmExtendCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec SpinnerArmExtendCommand");
+        log.debug("Exec SpinnerArmExtendCommand");
         Robot.spinnerSubsystem.extendSpinnerArm();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted SpinnerArmExtendCommand");
+        log.debug("Interrupted SpinnerArmExtendCommand");
     }
 
     @Override
@@ -38,6 +38,6 @@ public class SpinnerArmExtendCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending SpinnerArmExtendCommand " + timeSinceInitialized());
+        log.debug("Ending SpinnerArmExtendCommand " + timeSinceInitialized());
     }
 }

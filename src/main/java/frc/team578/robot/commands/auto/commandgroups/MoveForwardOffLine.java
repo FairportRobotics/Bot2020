@@ -5,6 +5,6 @@ import frc.team578.robot.commands.auto.AutoMoveTimed;
 
 public class MoveForwardOffLine extends CommandGroup {
     public MoveForwardOffLine() {
-        addSequential(new AutoMoveTimed("AutoMoveForward", 0.5, 0, 0, 2));
+        addSequential(new AutoMoveTimed("AutoMoveForward", 0.5, 0, 0, 1));
     }
 }

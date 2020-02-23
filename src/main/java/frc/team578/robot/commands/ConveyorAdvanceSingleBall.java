@@ -15,7 +15,7 @@ public class ConveyorAdvanceSingleBall extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing ConveyorAdvanceSingleBall");
+        log.debug("Initializing ConveyorAdvanceSingleBall");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ConveyorAdvanceSingleBall extends Command {
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted ConveyorAdvanceSingleBall");
+        log.debug("Interrupted ConveyorAdvanceSingleBall");
     }
 
     @Override
@@ -37,6 +37,6 @@ public class ConveyorAdvanceSingleBall extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending ConveyorAdvanceSingleBall " + timeSinceInitialized());
+        log.debug("Ending ConveyorAdvanceSingleBall " + timeSinceInitialized());
     }
 }

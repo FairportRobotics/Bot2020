@@ -10,39 +10,39 @@ public class CentricModeFieldCommand extends Command {
     private static final Logger log = LogManager.getLogger(CentricModeFieldCommand.class);
 
     public CentricModeFieldCommand() {
-        log.info("CentricModeFieldCommand Constructor");
+        log.debug("CentricModeFieldCommand Constructor");
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing CentricModeFieldCommand");
+        log.debug("Initializing CentricModeFieldCommand");
     }
 
     @Override
     protected void execute() {
 
-        log.info("Exec CentricModeFieldCommand");
+        log.debug("Exec CentricModeFieldCommand");
         Robot.swerveDriveSubsystem.setModeField();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted CentricModeFieldCommand");
+        log.debug("Interrupted CentricModeFieldCommand");
     }
 
     @Override
     protected boolean isFinished() {
 
         boolean isFinished = true;
-        log.info ("CentricModeFieldCommand is Finished : " + isFinished);
+        log.debug("CentricModeFieldCommand is Finished : " + isFinished);
         return isFinished;
     }
 
     @Override
     protected void end() {
 
-        log.info("Ending CentricModeFieldCommand " + timeSinceInitialized());
+        log.debug("Ending CentricModeFieldCommand " + timeSinceInitialized());
 
     }
 }

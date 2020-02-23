@@ -16,12 +16,12 @@ public class IntakeOutCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing IntakeOutCommand");
+        log.debug("Initializing IntakeOutCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec IntakeOutCommand");
+        log.debug("Exec IntakeOutCommand");
         // TODO: This method SHOULD be a toggle method, so add code to stop spinning
         Robot.intakeSubsystem.intakeSpinOut();
     }
@@ -30,7 +30,7 @@ public class IntakeOutCommand extends Command {
     @Override
     protected void interrupted() {
         Robot.intakeSubsystem.stop();
-        log.info("Interrupted IntakeOutCommand");
+        log.debug("Interrupted IntakeOutCommand");
     }
 
     @Override
@@ -40,6 +40,6 @@ public class IntakeOutCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending IntakeOutCommand " + timeSinceInitialized());
+        log.debug("Ending IntakeOutCommand " + timeSinceInitialized());
     }
 }

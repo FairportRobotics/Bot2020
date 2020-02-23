@@ -10,39 +10,39 @@ public class CentricModeRobotCommand extends Command {
     private static final Logger log = LogManager.getLogger(CentricModeRobotCommand.class);
 
     public CentricModeRobotCommand() {
-        log.info("CentricModeRobotCommand Constructor");
+        log.debug("CentricModeRobotCommand Constructor");
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing CentricModeRobotCommand");
+        log.debug("Initializing CentricModeRobotCommand");
     }
 
     @Override
     protected void execute() {
 
-        log.info("Exec CentricModeRobotCommand");
+        log.debug("Exec CentricModeRobotCommand");
         Robot.swerveDriveSubsystem.setModeRobot();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted CentricModeRobotCommand");
+        log.debug("Interrupted CentricModeRobotCommand");
     }
 
     @Override
     protected boolean isFinished() {
 
         boolean isFinished = true;
-        log.info ("CentricModeRobotCommand is Finished : " + isFinished);
+        log.debug("CentricModeRobotCommand is Finished : " + isFinished);
         return isFinished;
     }
 
     @Override
     protected void end() {
 
-        log.info("Ending CentricModeRobotCommand " + timeSinceInitialized());
+        log.debug("Ending CentricModeRobotCommand " + timeSinceInitialized());
 
     }
 }

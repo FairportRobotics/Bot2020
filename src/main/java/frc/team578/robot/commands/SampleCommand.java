@@ -10,35 +10,35 @@ public class SampleCommand extends Command {
     private static final Logger log = LogManager.getLogger(SampleCommand.class);
 
     public SampleCommand() {
-        log.info("SampleCommand Constructor");
+        log.debug("SampleCommand Constructor");
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing SampleCommand");
+        log.debug("Initializing SampleCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec SampleCommand");
+        log.debug("Exec SampleCommand");
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted CalibrateDrivesCommand");
+        log.debug("Interrupted CalibrateDrivesCommand");
     }
 
     @Override
     protected boolean isFinished() {
 
         boolean isFinished = false;
-        log.info ("SampleCommand is Finished : " + isFinished);
+        log.debug("SampleCommand is Finished : " + isFinished);
         return isFinished;
     }
 
     @Override
     protected void end() {
-        log.info("Ending SampleCommand " + timeSinceInitialized());
+        log.debug("Ending SampleCommand " + timeSinceInitialized());
     }
 }

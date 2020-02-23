@@ -16,7 +16,7 @@ public class ConveyorSpinToShooterCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing ConveyorSpinToShooterCommand");
+        log.debug("Initializing ConveyorSpinToShooterCommand");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ConveyorSpinToShooterCommand extends Command {
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted ConveyorSpinToShooterCommand");
+        log.debug("Interrupted ConveyorSpinToShooterCommand");
         Robot.conveyorSubsystem.stop();
     }
 
@@ -38,6 +38,6 @@ public class ConveyorSpinToShooterCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending ConveyorSpinToShooterCommand " + timeSinceInitialized());
+        log.debug("Ending ConveyorSpinToShooterCommand " + timeSinceInitialized());
     }
 }

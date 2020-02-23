@@ -16,12 +16,12 @@ public class SpinnerArmRetractCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing SpinnerArmRetractCommand");
+        log.debug("Initializing SpinnerArmRetractCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec SpinnerArmRetractCommand");
+        log.debug("Exec SpinnerArmRetractCommand");
         Robot.spinnerSubsystem.retractSpinnerArm();
     }
 

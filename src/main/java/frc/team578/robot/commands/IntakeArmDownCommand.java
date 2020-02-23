@@ -9,31 +9,31 @@ public class IntakeArmDownCommand extends Command {
     private static final Logger log = LogManager.getLogger(IntakeArmDownCommand.class);
 
     public IntakeArmDownCommand() {
-        log.info("IntakeArmDownCommand Constructor");
+        log.debug("IntakeArmDownCommand Constructor");
     }
 
     @Override
     protected void initialize() {
-        log.info("Initializing IntakeArmDownCommand");
+        log.debug("Initializing IntakeArmDownCommand");
     }
 
     @Override
     protected void execute() {
         Robot.intakeSubsystem.intakeArmDown();
-        log.info("Exec IntakeArmDownCommand");
+        log.debug("Exec IntakeArmDownCommand");
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted IntakeArmDownCommand");
+        log.debug("Interrupted IntakeArmDownCommand");
     }
 
     @Override
     protected boolean isFinished() {
 
         boolean isFinished = true;
-        log.info ("IntakeArmDownCommand is Finished : " + isFinished);
+        log.debug("IntakeArmDownCommand is Finished : " + isFinished);
         return isFinished;
     }
 

@@ -16,18 +16,18 @@ public class ClimberWinchUpCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing ClimberWinchUpCommand");
+        log.debug("Initializing ClimberWinchUpCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec ClimberWinchUpCommand");
+        log.debug("Exec ClimberWinchUpCommand");
         Robot.climberSubsystem.winchUp();
     }
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted ClimberWinchUpCommand");
+        log.debug("Interrupted ClimberWinchUpCommand");
         Robot.climberSubsystem.winchStop();
     }
 
@@ -38,6 +38,6 @@ public class ClimberWinchUpCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending ClimberWinchUpCommand " + timeSinceInitialized());
+        log.debug("Ending ClimberWinchUpCommand " + timeSinceInitialized());
     }
 }

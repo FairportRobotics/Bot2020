@@ -16,19 +16,19 @@ public class ShooterToDefaultRPMCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing ShooterShootAllCommand");
+        log.debug("Initializing ShooterShootAllCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec ShooterShootAllCommand");
+        log.debug("Exec ShooterShootAllCommand");
         Robot.shooterSubsystem.spinToDefaultRPM();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted ShooterShootAllCommand");
+        log.debug("Interrupted ShooterShootAllCommand");
     }
 
     @Override
@@ -38,6 +38,6 @@ public class ShooterToDefaultRPMCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending ShooterShootAllCommand " + timeSinceInitialized());
+        log.debug("Ending ShooterShootAllCommand " + timeSinceInitialized());
     }
 }

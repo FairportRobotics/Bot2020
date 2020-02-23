@@ -54,12 +54,12 @@ public class SwerveDriveCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("SwerveDriveCommand Ended");
+        log.debug("SwerveDriveCommand Ended");
     }
 
     @Override
     protected void interrupted() {
-        log.info("SwerveDriveCommand Interrupted");
+        log.debug("SwerveDriveCommand Interrupted");
     }
 
 }

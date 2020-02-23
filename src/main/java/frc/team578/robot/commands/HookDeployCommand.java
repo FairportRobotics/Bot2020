@@ -21,14 +21,14 @@ public class HookDeployCommand extends Command {
 
     @Override
     protected void execute() {
-        log.info("Exec HookDeployCommand");
+        log.debug("Exec HookDeployCommand");
         Robot.climberSubsystem.deployClimber();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted HookDeployCommand");
+        log.debug("Interrupted HookDeployCommand");
     }
 
     @Override
@@ -38,6 +38,6 @@ public class HookDeployCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending HookDeployCommand " + timeSinceInitialized());
+        log.debug("Ending HookDeployCommand " + timeSinceInitialized());
     }
 }

@@ -20,27 +20,27 @@ public class IntakeArmUpCommand extends Command {
     @Override
     protected void execute() {
         Robot.intakeSubsystem.intakeArmUp();
-        log.info("Exec IntakeArmUpCommand");
+        log.debug("Exec IntakeArmUpCommand");
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted IntakeArmUpCommand");
+        log.debug("Interrupted IntakeArmUpCommand");
     }
 
     @Override
     protected boolean isFinished() {
 
         boolean isFinished = true;
-        log.info ("IntakeArmUpCommand is Finished : " + isFinished);
+        log.debug("IntakeArmUpCommand is Finished : " + isFinished);
         return isFinished;
     }
 
     @Override
     protected void end() {
 
-        log.info("Ending IntakeArmUpCommand " + timeSinceInitialized());
+        log.debug("Ending IntakeArmUpCommand " + timeSinceInitialized());
 
     }
 }

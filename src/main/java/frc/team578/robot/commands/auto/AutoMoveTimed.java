@@ -19,12 +19,8 @@ public class AutoMoveTimed extends TimedCommand {
         this.strafe = strafe;
         this.rotation = rotation;
         this.timeoutSeconds = timeoutSeconds;
+        requires(Robot.swerveDriveSubsystem);
     }
-
-//    @Override
-//    protected void initialize() {
-//        requires(Robot.swerveDriveSubsystem);
-//    }
 
     @Override
     protected void execute() {

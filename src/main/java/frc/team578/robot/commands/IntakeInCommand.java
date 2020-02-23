@@ -16,12 +16,12 @@ public class IntakeInCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing IntakeInCommand");
+        log.debug("Initializing IntakeInCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec IntakeInCommand");
+        log.debug("Exec IntakeInCommand");
         Robot.intakeSubsystem.intakeSpinIn();
     }
 
@@ -29,7 +29,7 @@ public class IntakeInCommand extends Command {
     @Override
     protected void interrupted() {
         Robot.intakeSubsystem.stop();
-        log.info("Interrupted IntakeInCommand");
+        log.debug("Interrupted IntakeInCommand");
     }
 
     @Override
@@ -39,6 +39,6 @@ public class IntakeInCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending IntakeInCommand " + timeSinceInitialized());
+        log.debug("Ending IntakeInCommand " + timeSinceInitialized());
     }
 }

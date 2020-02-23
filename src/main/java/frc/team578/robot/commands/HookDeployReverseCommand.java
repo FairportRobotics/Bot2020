@@ -16,19 +16,19 @@ public class HookDeployReverseCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Initializing HookDeployReverseCommand");
+        log.debug("Initializing HookDeployReverseCommand");
     }
 
     @Override
     protected void execute() {
-        log.info("Exec HookDeployReverseCommand");
+        log.debug("Exec HookDeployReverseCommand");
         Robot.climberSubsystem.retractClimber();
     }
 
 
     @Override
     protected void interrupted() {
-        log.info("Interrupted HookDeployReverseCommand");
+        log.debug("Interrupted HookDeployReverseCommand");
     }
 
     @Override
@@ -38,6 +38,6 @@ public class HookDeployReverseCommand extends Command {
 
     @Override
     protected void end() {
-        log.info("Ending HookDeployReverseCommand " + timeSinceInitialized());
+        log.debug("Ending HookDeployReverseCommand " + timeSinceInitialized());
     }
 }
