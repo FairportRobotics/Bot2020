@@ -8,13 +8,11 @@ public class PenfieldRightShot  extends CommandGroup {
 
     public PenfieldRightShot(int shooterRPM) {
         addSequential(new MoveBackwardOffLine());
-        addSequential(new AutoTurnToHeading(315));
         addSequential(new ShooterSingleShotCommand(shooterRPM));
     }
 
     public PenfieldRightShot() {
         addSequential(new MoveBackwardOffLine());
-        addSequential(new AutoTurnToHeading(315));
         addSequential(new ShooterSingleShotCommand());
     }
 }
