@@ -9,6 +9,12 @@ import org.apache.logging.log4j.Logger;
 
 public class ShooterSingleShotCommand extends CommandGroup {
 
+    public ShooterSingleShotCommand(int shooterRPM) {
+        addSequential(new ShooterToTargetRPMCommand(shooterRPM));
+        addSequential(new ConveyorAdvanceSingleBall());
+    }
+
+
     public ShooterSingleShotCommand() {
         addSequential(new ShooterToDefaultRPMCommand());
 //        addSequential(new ShooterWaitForSpinUp(2));

@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
+import frc.team578.robot.subsystems.interfaces.UpdateDashboard;
 import frc.team578.robot.utils.PIDFinished;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class ShooterSubsystem extends Subsystem implements Initializable {
+public class ShooterSubsystem extends Subsystem implements Initializable, UpdateDashboard {
 
     private WPI_TalonSRX shooterTalon;
     private double defaultRPM = 4000;
@@ -90,9 +91,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
     public void spinToDefaultRPM() {
         double spinTo = SmartDashboard.getNumber("Target", defaultRPM);
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(spinTo));
-        SmartDashboard.putNumber("CLE", velToRPM(shooterTalon.getClosedLoopError()));
-        SmartDashboard.putNumber("Current RPM" ,velToRPM(shooterTalon.getClosedLoopTarget()));
-        SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
     }
 
     public void spinToMaxRPM() {
@@ -135,5 +133,12 @@ public class ShooterSubsystem extends Subsystem implements Initializable {
 
     private double velToRPM(double vel) {
         return (vel * 600.0) / 2048;
+    }
+
+    @Override
+    public void updateDashboard() {
+        SmartDashboard.putNumber("CLE", velToRPM(shooterTalon.getClosedLoopError()));
+        SmartDashboard.putNumber("Current RPM" ,velToRPM(shooterTalon.getClosedLoopTarget()));
+        SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
     }
 }

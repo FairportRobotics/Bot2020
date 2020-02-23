@@ -20,6 +20,9 @@ public class ChooserUtil {
         SendableChooser<AutoActionEnum> autoActionChooser = new SendableChooser<>();
         autoActionChooser.setDefaultOption("Cross_Line_Forward", AutoActionEnum.CROSS_LINE_FORWARD);
         autoActionChooser.addOption("Cross_Line_Backwards", AutoActionEnum.CROSS_LINE_BACKWARDS);
+        autoActionChooser.addOption("Penfield_Left", AutoActionEnum.PENFIELD_LEFT);
+        autoActionChooser.addOption("Penfield_Right", AutoActionEnum.PENFIELD_RIGHT);
+        autoActionChooser.addOption("Penfield_Center", AutoActionEnum.PENFIELD_CENTER);
         SmartDashboard.putData("Auto Action", autoActionChooser);
         return autoActionChooser;
 

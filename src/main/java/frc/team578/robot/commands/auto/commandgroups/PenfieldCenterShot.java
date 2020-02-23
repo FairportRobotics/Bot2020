@@ -5,8 +5,14 @@ import frc.team578.robot.commands.ShooterSingleShotCommand;
 import frc.team578.robot.commands.auto.AutoMoveTimed;
 
 public class PenfieldCenterShot extends CommandGroup {
+
+    public PenfieldCenterShot(int shooterRPM) {
+        addSequential(new MoveBackwardOffLine());
+        addSequential(new ShooterSingleShotCommand(shooterRPM));
+    }
+
     public PenfieldCenterShot() {
-        addSequential(new AutoMoveTimed("AutoMoveBackwards", -0.5, 0, 0, 1));
+        addSequential(new MoveBackwardOffLine());
         addSequential(new ShooterSingleShotCommand());
 
     }

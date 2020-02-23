@@ -120,9 +120,19 @@ public class Robot extends TimedRobot {
         AutoActionEnum autoActionEnum = autoActionChooser.getSelected();
 
         //TODO: Change Later: Default Auto Command
+        if (autoActionEnum == )
+
+
+        switch (autoActionEnum): {
+            
+        }
         autonomousCommand = new MoveTurnShootTest();
 //        autonomousCommand = new MoveBackwardOffLine();
-//        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD) { autonomousCommand = new MoveForwardOffLine(); }
+        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD)
+        { autonomousCommand = new MoveForwardOffLine(); }
+        else if () {
+
+        }
 
         log.info("Autonomous Command : " + autonomousCommand.getName());
 
