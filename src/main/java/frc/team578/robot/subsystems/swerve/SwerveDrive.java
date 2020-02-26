@@ -1,5 +1,6 @@
 package frc.team578.robot.subsystems.swerve;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.UpdateDashboard;
@@ -85,6 +86,20 @@ public class SwerveDrive implements UpdateDashboard {
         swerveEnclosureBL.zeroSteerEncoder();
         swerveEnclosureBR.zeroSteerEncoder();
     }
+    public void moveAllWheelsToTrueNorth() {
+        int flpos = SwerveConstants.FRONT_LEFT_TRUE_NORTH_ENC_POS;
+        int frpos = SwerveConstants.FRONT_RIGHT_TRUE_NORTH_ENC_POS;
+        int blpos = SwerveConstants.BACK_LEFT_TRUE_NORTH_ENC_POS;
+        int brpos = SwerveConstants.BACK_RIGHT_TRUE_NORTH_ENC_POS;
+
+
+        /* update motor controller */
+        swerveEnclosureFL.moveSteerToEncoderPosition(flpos);
+        swerveEnclosureFR.moveSteerToEncoderPosition(frpos);
+        swerveEnclosureFR.moveSteerToEncoderPosition(blpos);
+        swerveEnclosureBR.moveSteerToEncoderPosition(brpos);
+    }
+
 
     /*
     Wherever the wheel is right now, move it to where we think true north should be for that wheel so we can see where north is.

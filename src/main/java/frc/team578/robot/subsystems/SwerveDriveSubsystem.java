@@ -29,6 +29,10 @@ public class SwerveDriveSubsystem extends Subsystem implements Initializable, Up
         swerveDrive.zeroAllSteerEncoders();
     }
 
+    public void moveAllWheelsToTrueNorth() {
+        swerveDrive.moveAllWheelsToTrueNorth();
+    }
+
     public void stop() {
         swerveDrive.stop();
     }
