@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.team578.robot.commands.auto.commandgroups.MoveBackwardOffLine;
-import frc.team578.robot.commands.auto.commandgroups.MoveForwardOffLine;
-import frc.team578.robot.commands.auto.commandgroups.MoveTurnShootTest;
+import frc.team578.robot.commands.auto.commandgroups.*;
 import frc.team578.robot.commands.auto.enums.AutoActionEnum;
 import frc.team578.robot.commands.auto.enums.AutoStartingPositionEnum;
 import frc.team578.robot.subsystems.*;
 import frc.team578.robot.utils.ChooserUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static frc.team578.robot.commands.auto.enums.AutoActionEnum.PENFIELD_CENTER;
 
 public class Robot extends TimedRobot {
 
@@ -119,10 +119,24 @@ public class Robot extends TimedRobot {
 
         AutoActionEnum autoActionEnum = autoActionChooser.getSelected();
 
-        //TODO: Change Later: Default Auto Command
-        autonomousCommand = new MoveTurnShootTest();
-//        autonomousCommand = new MoveBackwardOffLine();
-//        if(autoActionEnum == AutoActionEnum.CROSS_LINE_FORWARD) { autonomousCommand = new MoveForwardOffLine(); }
+        // TODO: Find an rpm
+        switch (autoActionEnum) {
+            case PENFIELD_LEFT:
+                autonomousCommand = new PenfieldLeftShot(6000);
+                break;
+            case PENFIELD_CENTER:
+                autonomousCommand = new PenfieldCenterShot(4350);
+                break;
+            case PENFIELD_RIGHT:
+                autonomousCommand = new PenfieldRightShot(4275);
+                break;
+            case CROSS_LINE_FORWARD:
+                autonomousCommand = new MoveForwardOffLine();
+                break;
+            default:
+                autonomousCommand = new MoveBackwardOffLine();
+                break;
+        }
 
         log.info("Autonomous Command : " + autonomousCommand.getName());
 
