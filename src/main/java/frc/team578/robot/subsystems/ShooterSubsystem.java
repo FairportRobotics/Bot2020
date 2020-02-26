@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class ShooterSubsystem extends Subsystem implements Initializable, UpdateDashboard {
 
     private WPI_TalonSRX shooterTalon;
-    private double defaultRPM = 4000;
+    private double defaultRPM = 4200;
     private double maxRPM = 6300;
     private int kTimeoutMs = 0;
     private PIDFinished<Double> pidFinishRPMDerivative;
@@ -46,7 +46,7 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
         double kF =  0.04;
         double kP =  0.1; //0.11;
         double kI =  0.0005; //0.001;
-        double kD =  0.05; //0.1;
+        double kD =  6; //0.1;
         int iZone = 0;
 
 
@@ -54,7 +54,7 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
         shooterTalon.configNominalOutputForward(0, kTimeoutMs);
         shooterTalon.configNominalOutputReverse(0, kTimeoutMs);
         shooterTalon.configPeakOutputForward(1, kTimeoutMs);
-        shooterTalon.configPeakOutputReverse(0, kTimeoutMs); // No Reverse Power
+        shooterTalon.configPeakOutputReverse(.2, kTimeoutMs); // No Reverse Power
 
 
         /* Config the Velocity closed loop gains in slot0 */
