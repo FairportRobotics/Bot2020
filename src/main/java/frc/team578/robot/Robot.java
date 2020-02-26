@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
                 autonomousCommand = new PenfieldCenterShot(4350);
                 break;
             case PENFIELD_RIGHT:
-                autonomousCommand = new PenfieldRightShot(4275);
+                autonomousCommand = new PenfieldRightShot(4240);
                 break;
             case CROSS_LINE_FORWARD:
                 autonomousCommand = new MoveForwardOffLine();
