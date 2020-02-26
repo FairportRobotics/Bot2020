@@ -137,8 +137,9 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
 
     @Override
     public void updateDashboard() {
+        SmartDashboard.getNumber("Target", 4240);
         SmartDashboard.putNumber("CLE", velToRPM(shooterTalon.getClosedLoopError()));
-        SmartDashboard.putNumber("Current RPM" ,velToRPM(shooterTalon.getClosedLoopTarget()));
+        SmartDashboard.putNumber("Current RPM" ,velToRPM(shooterTalon.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
     }
 }

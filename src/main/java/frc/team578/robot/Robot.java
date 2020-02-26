@@ -194,6 +194,7 @@ public class Robot extends TimedRobot {
 //        Robot.swerveDriveSubsystem.updateDashboard();
 //        Robot.gyroSubsystem.updateDashboard();
 //        Robot.conveyorSubsystem.updateDashboard();
+        Robot.shooterSubsystem.updateDashboard();
     }
 
     public void handleGameData() {
