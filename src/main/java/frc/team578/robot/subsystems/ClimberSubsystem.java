@@ -16,7 +16,7 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     private DoubleSolenoid brakeSolenoid;
 
     private final double winchUpSpeed = .5;
-    private final double winchDownSpeed = .5;
+    private final double winchDownSpeed = .25;
 
     @Override
     public void initialize() {
@@ -27,7 +27,7 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
 
 //        traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
         brakeSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_BRAKE_EXTEND, RobotMap.PCM1_CLIMBER_BRAKE_RETRACT);
-        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
+//        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
     }
 
     @Override
@@ -64,11 +64,11 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     }
 
     public void winchBrakeExtend() {
-        climberSolenoid.set(DoubleSolenoid.Value.kForward);
+        brakeSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void winchBrakeRetract() {
-        climberSolenoid.set(DoubleSolenoid.Value.kReverse);
+        brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public boolean isClimberDeployed() {
