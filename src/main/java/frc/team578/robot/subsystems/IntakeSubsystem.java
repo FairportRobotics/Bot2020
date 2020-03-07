@@ -3,8 +3,10 @@ package frc.team578.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team578.robot.Robot;
 import frc.team578.robot.RobotMap;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 
@@ -13,8 +15,8 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
 
     private WPI_TalonSRX intakeTalon;
     private DoubleSolenoid intakeArmSolenoid;
-    private double spinIntakeInPower = 0.5;
-    private double spinIntakeOutPower = 0.5;
+    private double spinIntakeInPower = 0.4;
+    private double spinIntakeOutPower = 0.3;
 
 
 
@@ -37,13 +39,15 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
 
     //Intake Motor
     public void intakeSpinIn() {
-        System.err.println("Exceute intakeSpinIn");
-        System.out.println(intakeTalon.isAlive());
-        intakeTalon.set(ControlMode.PercentOutput, spinIntakeInPower);
+//        if(Robot.conveyorSubsystem.isIntakeSensorTripped()) { // If intake sensor is tripped, stop the intake
+//            stop();
+//        } else {
+            intakeTalon.set(ControlMode.PercentOutput, -spinIntakeInPower);
+//        }
     }
+
     public void intakeSpinOut() {
-        System.err.println("Execute intakeSpinOut");
-        intakeTalon.set(ControlMode.PercentOutput, -spinIntakeOutPower);
+        intakeTalon.set(ControlMode.PercentOutput, spinIntakeOutPower);
     }
 
     public void stop() {intakeTalon.set(ControlMode.PercentOutput, 0);}

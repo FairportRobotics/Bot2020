@@ -23,7 +23,7 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
     private Timer2 timer = new Timer2();
 
     private final double WAIT_TIME_SEC = 4;
-    private final double TIME_TO_MAKE_SPACE = .25;
+    private final double TIME_TO_MAKE_SPACE = .5;
     private final double conveyorPower = .5;
     private final double smallSpeed = .15;
 
@@ -45,7 +45,8 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
         ADVANCE_BALLS_SMALL_AMOUNT,
         MAKE_THE_SPACE,
         WAITING_FOR_INTAKE_RELOAD,
-        BRING_IN_NEW_BALL;
+        BRING_IN_NEW_BALL,
+        NULL;
 
         public boolean isShooting() {
             return this == SHOOT_SENSOR_WAITING_FOR_BALL
@@ -66,6 +67,8 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
     // This inherited method is being called by the scheduler
     @Override
     public void periodic() {
+
+        shootMode = ShootMode.NULL;
 
         if (prevShootMode == null || shootMode != prevShootMode) {
             log.info("Shoot Mode : " + shootMode);
@@ -220,6 +223,14 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
 
     public void moveTowardsIntakeSensor(double power) {
         conveyorTalon.set(ControlMode.PercentOutput, -power);
+    }
+
+    public boolean isIntakeSensorTripped() {
+        return intakeSensor.get();
+    }
+
+    public boolean isShooterSensorTripped() {
+        return shooterSensor.get();
     }
 
     public void stop() {
