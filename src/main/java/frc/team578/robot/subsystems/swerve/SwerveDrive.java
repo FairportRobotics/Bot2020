@@ -96,7 +96,7 @@ public class SwerveDrive implements UpdateDashboard {
         /* update motor controller */
         swerveEnclosureFL.moveSteerToEncoderPosition(flpos);
         swerveEnclosureFR.moveSteerToEncoderPosition(frpos);
-        swerveEnclosureFR.moveSteerToEncoderPosition(blpos);
+        swerveEnclosureBL.moveSteerToEncoderPosition(blpos);
         swerveEnclosureBR.moveSteerToEncoderPosition(brpos);
     }
 

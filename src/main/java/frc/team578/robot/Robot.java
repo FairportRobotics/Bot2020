@@ -70,9 +70,9 @@ public class Robot extends TimedRobot {
             shooterSubsystem.initialize();
             log.info("Shooter Subsystem Initialized");
 
-            climberSubsystem = new ClimberSubsystem();
-            climberSubsystem.initialize();
-            log.info("Climber Subsystem Initialized");
+//            climberSubsystem = new ClimberSubsystem();
+//            climberSubsystem.initialize();
+//            log.info("Climber Subsystem Initialized");
 
 //            spinnerSubsystem = new SpinnerSubsystem();
 //            spinnerSubsystem.initialize();
@@ -109,6 +109,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
 
         Robot.swerveDriveSubsystem.stop();
+        Robot.swerveDriveSubsystem.moveAllWheelsToTrueNorth();
 
         /*
           TODO : Do we want to lower the arm at the beginning (or is this manual)
@@ -140,8 +141,9 @@ public class Robot extends TimedRobot {
 
         log.info("Autonomous Command : " + autonomousCommand.getName());
 
-        if (autonomousCommand != null)
+        if (autonomousCommand != null) {
             autonomousCommand.start();
+        }
     }
 
     @Override
