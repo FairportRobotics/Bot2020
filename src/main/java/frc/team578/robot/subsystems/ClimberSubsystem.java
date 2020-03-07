@@ -25,9 +25,9 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
         winchTalon.set(ControlMode.Current,0);
         winchTalon.setNeutralMode(NeutralMode.Brake);
 
-//        traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
+        traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
         brakeSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_BRAKE_EXTEND, RobotMap.PCM1_CLIMBER_BRAKE_RETRACT);
-//        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
+        climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
     }
 
     @Override

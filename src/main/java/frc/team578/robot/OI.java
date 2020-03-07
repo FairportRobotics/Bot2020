@@ -27,39 +27,34 @@ public class OI implements Initializable {
         /* Operator */
         // Big Boi
         // Hook commands
-//        ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
-//        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
+        ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
+        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
         // Intake commands
         ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
         ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
         // Shooter commands
         ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
         ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
-        // Spinner commands
-//        ob1.five.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend the spinner arm
-//        ob1.nine.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract the spinner arm
+        // Winch brake commands
+        ob1.five.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake
+        ob1.nine.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract winch brake
         // Winch commands
-//        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
-//        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
+        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
+        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
 
-        // Leftover Commands that we still need buttons for
-        // Spinner commands
-        // Hold to spin the spinner clockwise
-        // Hold to spin the spinner counterclockwise
-        // Press to run the spinner a full distance
-        // Press to increment the spinner's color
+        // TODO: Add analog joysticks for traversal using L and R joystick, disable up and down
 
         // Debug Gamepad
         gp1.buttonA.whileHeld(new ConveyorDebugSpinForwardCommand()); // Hold to spin in conveyor belt
         gp1.buttonB.whileHeld(new ConveyorDebugSpinBackwardsCommand()); // Hold to spin out conveyor belt
 
-        gp1.buttonX.whenPressed(new ShooterToDefaultRPMCommand()); // Hold to spin in conveyor belt
-        gp1.buttonY.whileHeld(new ShooterDebugStopCommand()); // Hold to spin out conveyor belt
+        gp1.buttonX.whenPressed(new ShooterToDefaultRPMCommand()); // Press to spin shooter to default RPM
+        gp1.buttonY.whenPressed(new ShooterDebugStopCommand()); // Press to stop shooter
 
-        gp1.lb.whenPressed(new IntakeArmDownCommand());
-        gp1.rb.whenPressed(new IntakeArmUpCommand());
+        gp1.lb.whenPressed(new IntakeArmDownCommand()); // Press to move intake arm down (out)
+        gp1.rb.whenPressed(new IntakeArmUpCommand()); // Press to move intake arm up (in)
 
-
+        gp1.lt.whileHeld(new IntakeInCommand2());
     }
 
 }

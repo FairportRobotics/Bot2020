@@ -15,7 +15,7 @@ public class IntakeSubsystem extends Subsystem implements Initializable {
 
     private WPI_TalonSRX intakeTalon;
     private DoubleSolenoid intakeArmSolenoid;
-    private double spinIntakeInPower = 0.4;
+    private double spinIntakeInPower = 0.25;
     private double spinIntakeOutPower = 0.3;
 
 
