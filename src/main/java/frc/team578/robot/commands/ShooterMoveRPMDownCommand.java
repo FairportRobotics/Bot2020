@@ -1,0 +1,44 @@
+package frc.team578.robot.commands;
+
+
+import edu.wpi.first.wpilibj.command.Command;
+import frc.team578.robot.Robot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class ShooterMoveRPMDownCommand extends Command {
+
+    private static final Logger log = LogManager.getLogger(ShooterMoveRPMDownCommand.class);
+    private static final double RPM_DECREMENT_VALUE = 10;
+
+    public ShooterMoveRPMDownCommand() {
+        requires(Robot.shooterSubsystem);
+    }
+
+    @Override
+    protected void initialize() {
+        log.debug("Initializing ShooterMoveRPMDownCommand");
+    }
+
+    @Override
+    protected void execute() {
+        log.debug("Exec ShooterMoveRPMDownCommand");
+        Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() - RPM_DECREMENT_VALUE);
+    }
+
+
+    @Override
+    protected void interrupted() {
+        log.debug("Interrupted ShooterMoveRPMDownCommand");
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return true;
+    }
+
+    @Override
+    protected void end() {
+        log.debug("Ending ShooterMoveRPMDownCommand " + timeSinceInitialized());
+    }
+}

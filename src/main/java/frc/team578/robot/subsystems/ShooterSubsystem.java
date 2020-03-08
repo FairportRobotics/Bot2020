@@ -97,6 +97,10 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(maxRPM));
     }
 
+    public double getDefaultRPM() {
+        return defaultRPM;
+    }
+
     public void setDefaultRPM(double rpm) {
         defaultRPM = rpm;
     }
