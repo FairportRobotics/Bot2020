@@ -72,6 +72,6 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     }
 
     public boolean isClimberDeployed() {
-        return false;
+        return climberSolenoid.get() != DoubleSolenoid.Value.kReverse && climberSolenoid.get() != DoubleSolenoid.Value.kOff;
     }
 }
