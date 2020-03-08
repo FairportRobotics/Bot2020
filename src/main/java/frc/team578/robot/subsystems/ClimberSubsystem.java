@@ -18,6 +18,8 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     private final double winchUpSpeed = .5;
     private final double winchDownSpeed = .25;
 
+    private final double traverseSpeed = .25;
+
     @Override
     public void initialize() {
         winchTalon = new WPI_TalonSRX(RobotMap.WINCH_TALON);
@@ -26,18 +28,16 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
         winchTalon.setNeutralMode(NeutralMode.Brake);
 
         traverseTalon = new WPI_TalonSRX(RobotMap.TRAVERSE_TALON);
+        traverseTalon.configFactoryDefault();
+        traverseTalon.set(ControlMode.Current,0);
+        traverseTalon.setNeutralMode(NeutralMode.Brake);
+
         brakeSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_BRAKE_EXTEND, RobotMap.PCM1_CLIMBER_BRAKE_RETRACT);
         climberSolenoid = new DoubleSolenoid(RobotMap.PCM1, RobotMap.PCM1_CLIMBER_UP, RobotMap.PCM1_CLIMBER_DOWN);
     }
 
     @Override
     protected void initDefaultCommand() {
-    }
-
-    public void traverseLeft() {
-    }
-
-    public void traverseRight() {
     }
 
     public void deployClimber() {
@@ -51,22 +51,26 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
         climberSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
+    //Winch
     public void winchUp() {
         winchTalon.set(ControlMode.PercentOutput, winchUpSpeed);
     }
-
     public void winchDown() {
         winchTalon.set(ControlMode.PercentOutput, -winchDownSpeed);
     }
-
     public void winchStop() {
         winchTalon.set(ControlMode.PercentOutput, 0);
     }
 
+    //Traverse
+    public void traverseLeft() { traverseTalon.set(ControlMode.PercentOutput, -traverseSpeed); }
+    public void traverseRight() { traverseTalon.set(ControlMode.PercentOutput, traverseSpeed); }
+    public void traverseStop() { traverseTalon.set(ControlMode.PercentOutput, 0);}
+
+    //Winch Brake
     public void winchBrakeExtend() {
         brakeSolenoid.set(DoubleSolenoid.Value.kForward);
     }
-
     public void winchBrakeRetract() {
         brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
@@ -74,4 +78,6 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     public boolean isClimberDeployed() {
         return climberSolenoid.get() != DoubleSolenoid.Value.kReverse && climberSolenoid.get() != DoubleSolenoid.Value.kOff;
     }
+
+
 }
