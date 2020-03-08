@@ -36,8 +36,8 @@ public class OI implements Initializable {
         ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
         ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
         // Winch brake commands
-        ob1.five.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake
-        ob1.nine.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract winch brake
+        ob1.five.whileHeld(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake and holding this down should allow for use of the joystick to traverse
+        ob1.nine.whenPressed(new ClimberWinchBrakeRetractCommand() ); // Press to retract winch brake
         // Winch commands
         ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
         ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down

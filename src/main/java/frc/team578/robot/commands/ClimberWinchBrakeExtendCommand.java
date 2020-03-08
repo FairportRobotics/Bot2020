@@ -14,6 +14,7 @@ public class ClimberWinchBrakeExtendCommand extends Command {
         requires(Robot.climberSubsystem);
     }
 
+
     @Override
     protected void initialize() {
         log.debug("Initializing ClimberWinchBrakeExtendCommand");
@@ -22,7 +23,20 @@ public class ClimberWinchBrakeExtendCommand extends Command {
     @Override
     protected void execute() {
         log.debug("Exec ClimberWinchBrakeExtendCommand");
-        Robot.climberSubsystem.winchBrakeExtend();
+        if(!Robot.climberSubsystem.isBrakeExtended()) {
+            Robot.climberSubsystem.winchBrakeExtend();
+        }
+        double traverse = Robot.oi.ob1.getJoystickX();
+        if(traverse < 0) {
+            Robot.climberSubsystem.traverseLeft();
+        }
+        else if(traverse > 0) {
+            Robot.climberSubsystem.traverseRight();
+        }
+        else {
+            Robot.climberSubsystem.traverseStop();
+        }
+
     }
 
 
@@ -33,11 +47,12 @@ public class ClimberWinchBrakeExtendCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override
     protected void end() {
         log.debug("Ending ClimberWinchBrakeExtendCommand " + timeSinceInitialized());
     }
+
 }

@@ -22,6 +22,7 @@ public class ClimberWinchBrakeRetractCommand extends Command {
     @Override
     protected void execute() {
         log.debug("Exec ClimberWinchBrakeRetractCommand");
+        Robot.climberSubsystem.traverseStop();
         Robot.climberSubsystem.winchBrakeRetract();
     }
 

@@ -33,11 +33,6 @@ public class OperatorBox {
         ten = new JoystickButton(operatorBox, 10);
     }
 
-    public double getJoystickLeftX() { return operatorBox.getLeftX(); }
-    public double getJoystickRightX() { return operatorBox.getRightX(); }
-
-    public double getJoystickUpY() { return operatorBox.getLeftY(); }
-    public double getJoystickDownY() {
-        return operatorBox.getRightY();
-    }
+    public double getJoystickX() { return operatorBox.getX(); }
+    public double getJoystickY() { return operatorBox.getY(); }
 }
