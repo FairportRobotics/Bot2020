@@ -1,44 +1,20 @@
 package frc.team578.robot.commands;
 
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team578.robot.Robot;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class ShooterMoveRPMUpCommand extends Command {
-
-    private static final Logger log = LogManager.getLogger(ShooterMoveRPMUpCommand.class);
-    private static final double RPM_INCREMENT_VALUE = 10;
-
+public class ShooterMoveRPMUpCommand extends CommandGroup {
     public ShooterMoveRPMUpCommand() {
         requires(Robot.shooterSubsystem);
+
+        if(Robot.shooterSubsystem.isSpinning()) {
+            addSequential(new ShooterIncrementRPM());
+            addSequential(new ShooterToDefaultRPMCommand());
+        }
+        else {
+            addSequential(new ShooterIncrementRPM());
+        }
     }
 
-    @Override
-    protected void initialize() {
-        log.debug("Initializing ShooterMoveRPMUpCommand");
-    }
-
-    @Override
-    protected void execute() {
-        log.debug("Exec ShooterMoveRPMUpCommand");
-        Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() + RPM_INCREMENT_VALUE);
-    }
-
-
-    @Override
-    protected void interrupted() {
-        log.debug("Interrupted ShooterMoveRPMUpCommand");
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return true;
-    }
-
-    @Override
-    protected void end() {
-        log.debug("Ending ShooterMoveRPMUpCommand " + timeSinceInitialized());
-    }
 }

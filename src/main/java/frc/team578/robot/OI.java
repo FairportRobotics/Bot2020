@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team578.robot.commands.*;
 import frc.team578.robot.commands.debug.*;
 import frc.team578.robot.subsystems.interfaces.Initializable;
+import frc.team578.robot.utils.AnalogJoystickButton;
 import frc.team578.robot.utils.Gamepad;
 import frc.team578.robot.utils.OperatorBox;
 
@@ -12,8 +13,8 @@ public class OI implements Initializable {
 
     public Joystick leftJoystick = new Joystick(RobotMap.LEFT_JOYSTICK_ID);
     public Joystick rightJoystick = new Joystick(RobotMap.RIGHT_JOYSTICK_ID);
-    public OperatorBox ob1 = new OperatorBox(RobotMap.OPERATORBOX_ID); // Operator box - main control functions w/ analog joystick
-    public Gamepad gp1 = new Gamepad(RobotMap.DEBUG_GAMEPAD_ID); // Debug gamepad - secondary, nonessential functions
+    public OperatorBox ob1 = new OperatorBox(RobotMap.OPERATORBOX1_ID); // Operator box - main control functions w/ analog joystick
+    public OperatorBox ob2 = new OperatorBox(RobotMap.OPERATORBOX2_ID); // Operator box - main control functions w/ analog joystick
 
     int JOYSTICK_TRIGGER_BUTTON_NUMBER = 1;
     JoystickButton leftTrigger = new JoystickButton(leftJoystick, JOYSTICK_TRIGGER_BUTTON_NUMBER);
@@ -28,33 +29,47 @@ public class OI implements Initializable {
         // Big Boi
         // Hook commands
         ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
-        ob1.two.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
+        ob2.one.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
+
+        ob1.two.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake
+        ob2.two.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract winch brake
         // Intake commands
-        ob1.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
-        ob1.seven.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
+        ob2.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
+        ob2.six.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
+
+        ob2.four.whenPressed(new ShooterToDefaultRPMCommand());
+        ob2.five.whenPressed(new ShooterDebugStopCommand());
+
+        ob1.three.whenPressed(new IntakeArmDownCommand());
+        ob1.six.whenPressed(new IntakeArmUpCommand());
+
+        ob1.four.whileHeld(new ClimberWinchUpCommand());
+        ob1.five.whileHeld(new ClimberDebugWinchDownCommand());
+
+        ob1.seven.whileHeld(new ConveyorDebugSpinForwardCommand());
+        ob1.ten.whileHeld(new ConveyorDebugSpinBackwardsCommand());
+
+
+
         // Shooter commands
-        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
-        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
+//        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
+//        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
         // Winch brake commands
-        ob1.five.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake
-        ob1.nine.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract winch brake
+
         // Winch commands
-        ob1.six.whileHeld(new ClimberWinchUpCommand()); // Hold to move the winch up
-        ob1.ten.whileHeld(new ClimberDebugWinchDownCommand()); // Hold to move the winch down
 
-        // TODO: Add analog joysticks for traversal using L and R joystick, disable up and down
 
-        // Debug Gamepad
-        gp1.buttonA.whileHeld(new ConveyorDebugSpinForwardCommand()); // Hold to spin in conveyor belt
-        gp1.buttonB.whileHeld(new ConveyorDebugSpinBackwardsCommand()); // Hold to spin out conveyor belt
+        // Analog joystick stuff
+        final AnalogJoystickButton LEFT = new AnalogJoystickButton(ob1.getAnalogJoystick(), 0, -1),
+                RIGHT = new AnalogJoystickButton(ob1.getAnalogJoystick(), 0, 1),
+                UP = new AnalogJoystickButton(ob1.getAnalogJoystick(), 1, -1),
+                DOWN = new AnalogJoystickButton(ob1.getAnalogJoystick(), 1, 1);
 
-        gp1.buttonX.whenPressed(new ShooterToDefaultRPMCommand()); // Press to spin shooter to default RPM
-        gp1.buttonY.whenPressed(new ShooterDebugStopCommand()); // Press to stop shooter
+        LEFT.whileHeld(new ClimberTraverseLeft());
+        RIGHT.whileHeld(new ClimberTraverseRight());
 
-        gp1.lb.whenPressed(new IntakeArmDownCommand()); // Press to move intake arm down (out)
-        gp1.rb.whenPressed(new IntakeArmUpCommand()); // Press to move intake arm up (in)
-
-        gp1.lt.whileHeld(new IntakeInCommand2());
+        UP.whileHeld(new ShooterMoveRPMUpCommand());
+        DOWN.whileHeld(new ShooterMoveRPMDownCommand());
     }
 
 }

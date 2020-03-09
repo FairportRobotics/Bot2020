@@ -1,5 +1,6 @@
 package frc.team578.robot.utils;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.team578.robot.RobotMap;
@@ -33,11 +34,7 @@ public class OperatorBox {
         ten = new JoystickButton(operatorBox, 10);
     }
 
-    public double getJoystickLeftX() { return operatorBox.getLeftX(); }
-    public double getJoystickRightX() { return operatorBox.getRightX(); }
-
-    public double getJoystickUpY() { return operatorBox.getLeftY(); }
-    public double getJoystickDownY() {
-        return operatorBox.getRightY();
+    public GenericHID getAnalogJoystick() {
+        return operatorBox;
     }
 }

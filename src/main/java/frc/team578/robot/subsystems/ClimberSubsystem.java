@@ -18,7 +18,7 @@ public class ClimberSubsystem extends Subsystem implements Initializable {
     private final double winchUpSpeed = .5;
     private final double winchDownSpeed = .25;
 
-    private final double traverseSpeed = .25;
+    private final double traverseSpeed = 1;
 
     @Override
     public void initialize() {

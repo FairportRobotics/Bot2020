@@ -15,10 +15,10 @@ public class RobotMap {
     public static final int BACK_RIGHT_ROTATE_TALON_ID = 13;
 
     // OI Control IDs
-    public static final int OPERATORBOX_ID = 0;
+    public static final int OPERATORBOX1_ID = 0;
+    public static final int OPERATORBOX2_ID = 3;
     public static final int LEFT_JOYSTICK_ID = 1;
     public static final int RIGHT_JOYSTICK_ID = 2;
-    public static final int DEBUG_GAMEPAD_ID = 3;
 
     // Pneumatics Control
 
