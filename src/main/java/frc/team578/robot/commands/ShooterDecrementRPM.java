@@ -17,19 +17,19 @@ public class ShooterDecrementRPM extends Command {
 
     @Override
     protected void initialize() {
-        log.debug("Initializing ShooterMoveRPMDownCommand");
+        log.debug("Initializing ShooterDecrementRPM");
     }
 
     @Override
     protected void execute() {
-        log.debug("Exec ShooterMoveRPMDownCommand");
+        log.debug("Exec ShooterDecrementRPM");
         Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() - RPM_DECREMENT_VALUE);
     }
 
 
     @Override
     protected void interrupted() {
-        log.debug("Interrupted ShooterMoveRPMDownCommand");
+        log.debug("Interrupted ShooterDecrementRPM");
     }
 
     @Override
@@ -39,6 +39,6 @@ public class ShooterDecrementRPM extends Command {
 
     @Override
     protected void end() {
-        log.debug("Ending ShooterMoveRPMDownCommand " + timeSinceInitialized());
+        log.debug("Ending ShooterDecrementRPM " + timeSinceInitialized());
     }
 }

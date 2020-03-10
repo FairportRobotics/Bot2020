@@ -8,12 +8,12 @@ public class ShooterMoveRPMDownCommand extends CommandGroup {
     public ShooterMoveRPMDownCommand() {
         requires(Robot.shooterSubsystem);
 
-        if(Robot.shooterSubsystem.isSpinning()) {
+//        if(Robot.shooterSubsystem.isSpinning()) {
             addSequential(new ShooterDecrementRPM());
             addSequential(new ShooterToDefaultRPMCommand());
-        } else {
-            addSequential(new ShooterDecrementRPM());
-        }
+//        } else {
+//            addSequential(new ShooterDecrementRPM());
+//        }
     }
 
 }

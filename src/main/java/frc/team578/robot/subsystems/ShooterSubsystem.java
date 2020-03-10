@@ -40,8 +40,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
         shooterTalon.setSensorPhase(true);
         shooterTalon.setInverted(false);
 
-        SmartDashboard.putNumber("Target", defaultRPM);
-
 
         double kF =  0.04;
         double kP =  0.1; //0.11;
@@ -89,7 +87,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
     }
 
     public void spinToDefaultRPM() {
-        double spinTo = SmartDashboard.getNumber("Target", defaultRPM);
         shooterTalon.set(ControlMode.Velocity, RPMsToVel(defaultRPM));
     }
 
@@ -103,7 +100,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
 
     public void setDefaultRPM(double rpm) {
         defaultRPM = rpm;
-        updateDashboard();
     }
 
     /*
@@ -151,9 +147,9 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
 
     @Override
     public void updateDashboard() {
-        SmartDashboard.getNumber("Target", 4240);
         SmartDashboard.putNumber("CLE", velToRPM(shooterTalon.getClosedLoopError()));
         SmartDashboard.putNumber("Current RPM" , velToRPM(shooterTalon.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
+        SmartDashboard.putNumber("Shooter", defaultRPM);
     }
 }
