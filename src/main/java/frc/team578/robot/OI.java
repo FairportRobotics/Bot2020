@@ -6,7 +6,6 @@ import frc.team578.robot.commands.*;
 import frc.team578.robot.commands.debug.*;
 import frc.team578.robot.subsystems.interfaces.Initializable;
 import frc.team578.robot.utils.AnalogJoystickButton;
-import frc.team578.robot.utils.Gamepad;
 import frc.team578.robot.utils.OperatorBox;
 
 public class OI implements Initializable {
@@ -29,10 +28,10 @@ public class OI implements Initializable {
         // Big Boi
         // Hook commands
         ob1.one.whenPressed(new HookDeployCommand()); // Press to deploy hook
-        ob2.one.whenPressed(new HookDeployReverseCommand()); // Press to bring hook back down
+        ob2.one.whenPressed(new ClimberWinchUpCommand()); // Press to bring hook back down
 
         ob1.two.whenPressed(new ClimberWinchBrakeExtendCommand()); // Press to extend winch brake
-        ob2.two.whenPressed(new ClimberWinchBrakeRetractCommand()); // Press to retract winch brake
+        ob2.two.whenPressed(new HookDeployReverseCommand()); // Press to retract winch brake
         // Intake commands
         ob2.three.whileHeld(new IntakeInCommand()); // Hold to spin intake in
         ob2.six.whileHeld(new IntakeOutCommand()); // Hold to spin intake out
@@ -43,8 +42,8 @@ public class OI implements Initializable {
         ob1.three.whenPressed(new IntakeArmDownCommand());
         ob1.six.whenPressed(new IntakeArmUpCommand());
 
-        ob1.four.whileHeld(new ClimberWinchUpCommand());
-        ob1.five.whileHeld(new ClimberDebugWinchDownCommand());
+        ob1.four.whileHeld(new ClimberDebugWinchDownCommand());
+        ob1.five.whileHeld(new ClimberWinchBrakeRetractCommand());
 
         ob1.seven.whileHeld(new ConveyorDebugSpinForwardCommand());
         ob1.ten.whileHeld(new ConveyorDebugSpinBackwardsCommand());
@@ -52,8 +51,8 @@ public class OI implements Initializable {
 
 
         // Shooter commands
-//        ob1.four.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
-//        ob1.eight.whileHeld(new ShooterShootAllCommand()); // Hold to continuously shoot
+        ob1.eight.whenPressed(new ShooterSingleShotCommand()); // Press to shoot one ball
+        ob1.nine.whenPressed(new ToggleConveyorModeCommand()); // Hold to continuously shoot
         // Winch brake commands
 
         // Winch commands

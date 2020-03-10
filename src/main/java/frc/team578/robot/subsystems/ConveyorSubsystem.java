@@ -238,6 +238,17 @@ public class ConveyorSubsystem extends Subsystem implements Initializable, Updat
         conveyorTalon.set(ControlMode.PercentOutput, 0);
     }
 
+    public ShootMode toggleConveyorLogic() {
+        if(shootMode == ShootMode.NULL) {
+            shootMode = ShootMode.BRING_IN_NEW_BALL;
+        } else {
+            shootMode = ShootMode.NULL;
+            stop();
+        }
+
+        return shootMode;
+    }
+
     @Override
     public void updateDashboard() {
         SmartDashboard.putBoolean("IntakeSensor",intakeSensor.get());

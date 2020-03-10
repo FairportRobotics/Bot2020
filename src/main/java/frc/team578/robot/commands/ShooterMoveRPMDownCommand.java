@@ -6,7 +6,7 @@ import frc.team578.robot.Robot;
 
 public class ShooterMoveRPMDownCommand extends CommandGroup {
     public ShooterMoveRPMDownCommand() {
-        requires(Robot.shooterSubsystem);
+//        requires(Robot.shooterSubsystem);
 
         addSequential(new ShooterDecrementRPM());
         addSequential(new ShooterToDefaultRPMCommand());

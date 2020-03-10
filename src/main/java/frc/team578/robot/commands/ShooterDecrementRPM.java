@@ -12,7 +12,6 @@ public class ShooterDecrementRPM extends Command {
     private static final double RPM_DECREMENT_VALUE = 10;
 
     public ShooterDecrementRPM() {
-        requires(Robot.shooterSubsystem);
     }
 
     @Override
