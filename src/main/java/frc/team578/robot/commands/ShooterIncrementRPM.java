@@ -22,7 +22,9 @@ public class ShooterIncrementRPM extends Command {
     @Override
     protected void execute() {
         log.debug("Exec ShooterIncrementRPM");
-        Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() + RPM_INCREMENT_VALUE);
+        if(Robot.shooterSubsystem.getDefaultRPM() <= 6500) {
+            Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() + RPM_INCREMENT_VALUE);
+        }
     }
 
 

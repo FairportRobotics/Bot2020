@@ -22,7 +22,9 @@ public class ShooterDecrementRPM extends Command {
     @Override
     protected void execute() {
         log.debug("Exec ShooterDecrementRPM");
-        Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() - RPM_DECREMENT_VALUE);
+        if(Robot.shooterSubsystem.getDefaultRPM() >= 4000) {
+            Robot.shooterSubsystem.setDefaultRPM(Robot.shooterSubsystem.getDefaultRPM() - RPM_DECREMENT_VALUE);
+        }
     }
 
 
