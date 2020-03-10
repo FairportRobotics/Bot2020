@@ -130,7 +130,8 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
 
     public boolean isSpinning() {
         int threshold = 10; // In RPM
-        return velToRPM(shooterTalon.getSelectedSensorVelocity()) > threshold || velToRPM(shooterTalon.getSelectedSensorVelocity()) < -threshold;
+        return shooterTalon.getControlMode().equals(ControlMode.Velocity);
+//        return velToRPM(shooterTalon.getSelectedSensorVelocity()) > threshold || velToRPM(shooterTalon.getSelectedSensorVelocity()) < -threshold;
     }
 
     /*
@@ -151,5 +152,6 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
         SmartDashboard.putNumber("Current RPM" , velToRPM(shooterTalon.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("Power Output", shooterTalon.getMotorOutputPercent());
         SmartDashboard.putNumber("Shooter", defaultRPM);
+        SmartDashboard.putBoolean("Spinning", isSpinning());
     }
 }
