@@ -8,13 +8,11 @@ public class ShooterMoveRPMUpCommand extends CommandGroup {
     public ShooterMoveRPMUpCommand() {
         requires(Robot.shooterSubsystem);
 
-//        if(Robot.shooterSubsystem.isSpinning()) {
-            addSequential(new ShooterIncrementRPM());
+        addSequential(new ShooterIncrementRPM());
+
+        if(Robot.shooterSubsystem.isSpinning()) { // If it's spinning, then spin it to the new RPM
             addSequential(new ShooterToDefaultRPMCommand());
-//        }
-//        else {
-//            addSequential(new ShooterIncrementRPM());
-//        }
+        }
     }
 
 }

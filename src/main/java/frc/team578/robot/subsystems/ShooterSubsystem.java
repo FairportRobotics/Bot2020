@@ -129,9 +129,8 @@ public class ShooterSubsystem extends Subsystem implements Initializable, Update
     }
 
     public boolean isSpinning() {
-        int threshold = 10; // In RPM
+        // Will return false only if there is no PID value - shooter can still be spinning down to 0 and will return false.
         return shooterTalon.getControlMode().equals(ControlMode.Velocity);
-//        return velToRPM(shooterTalon.getSelectedSensorVelocity()) > threshold || velToRPM(shooterTalon.getSelectedSensorVelocity()) < -threshold;
     }
 
     /*
