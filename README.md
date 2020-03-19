@@ -4,6 +4,10 @@
 
 ----------
 
+[![](https://i.redd.it/flaicx77eam41.jpg)]
+
+----------
+
 [![one](https://i.redd.it/ycs77xmtl2f41.png)](https://old.reddit.com/r/FRC/comments/f0vqlx/just_like_dean_kamen_used_to_make/)
 
 ----------
